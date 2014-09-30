@@ -41,7 +41,7 @@ namespace NimGame
         public Program()
         {
             boardState = new int[] {3, 5, 7};
-            GameMoves = new List<Move>();      
+            GameMoves = new List<int[]>();      
             
             GameType = GetGameType();
             computer = new AI();
