@@ -36,11 +36,12 @@ namespace NimGame
         List<int[]> GameMoves;
         int[] boardState;
         GameType GameType;
+        int p1Wins = 0, p2Wins = 0;
 
         public Program()
         {
             boardState = new int[] {3, 5, 7};
-            GameMoves = new List<int[]>();      
+            GameMoves = new List<Move>();      
             
             GameType = GetGameType();
             computer = new AI();
@@ -113,6 +114,13 @@ namespace NimGame
                 }
                 computer.AddGame(GameMoves);
                 GameMoves.Clear();
+                if (player1Turn) 
+                {
+                    p1Wins++;
+                }
+                else{
+                    p2Wins++;
+                }
                 Console.WriteLine(player1Turn ? "Player 1 wins!!!" : "Player 2 wins!!!");
                 Console.WriteLine();
                 Console.WriteLine();

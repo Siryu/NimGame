@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Enums\GameType.cs" />
     <Compile Include="Models\AI.cs" />
+    <Compile Include="Models\Move.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

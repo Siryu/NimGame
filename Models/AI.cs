@@ -8,11 +8,13 @@ namespace NimGame.Models
 {
     public class AI
     {
+        Dictionary<int[], Dictionary<int[], float>> moveLog;
         Dictionary<int[], float> MoveValues;
 
         public AI()
         {
             MoveValues = new Dictionary<int[], float>();
+            moveLog = new Dictionary<int[],Dictionary<int[], float>>();
         }
 
         public int[] calculateTurn(int[] boardState)
@@ -36,6 +38,13 @@ namespace NimGame.Models
             foreach (int[] intarr in moves)
             {
                 Array.Sort(intarr);
+                foreach (int[] key in moveLog.Keys)
+                {
+                    if (key[0] == intarr[0] && key[1] == intarr[1] && key[2] == intarr[2])
+                    {
+                        
+                    }
+                }
             }
         }
     }
