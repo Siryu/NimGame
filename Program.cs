@@ -77,8 +77,7 @@ namespace NimGame
                         Console.WriteLine();
                         Console.WriteLine(player1Turn ? "Player 1's turn" : "Computer's turn");
                         PrintBoard();
-                        GameMoves.Add(GetUserInput());
-                        GameMoves.Add(GetComputerInput());
+                        GameMoves.Add(player1Turn ? GetUserInput() : GetComputerInput());
                     }
 
                     else
@@ -92,8 +91,8 @@ namespace NimGame
                             int.TryParse(Console.ReadLine(), out turns);
                         }
 
-                            GameMoves.Add(GetComputerInput());
-                            GameMoves.Add(GetComputerInput());
+                        GameMoves.Add(GetComputerInput());
+                        GameMoves.Add(GetComputerInput());
                     }
 
                     foreach (int i in boardState)
@@ -118,20 +117,33 @@ namespace NimGame
                 Console.WriteLine();
                 if (turns <= 0)
                 {
-                    Console.WriteLine("Do you want to play again? y/n");
-                    string playAgain = Console.ReadLine();
-                    if (playAgain.ToUpper() == "N" || playAgain.ToUpper() == "NO")
+                    string playAgain = null;
+
+                    while (playAgain == null)
                     {
-                        gameExit = true;
+                        Console.WriteLine("Do you want to play again? y/n");
+                        playAgain = Console.ReadLine();
+                        if (playAgain.ToUpper() == "N" || playAgain.ToUpper() == "NO")
+                        {
+                            gameExit = true;
+                        }
+                        else if (playAgain.ToUpper() == "Y" || playAgain.ToUpper() == "YES")
+                        {
+                            gameExit = false;
+                            boardState = new int[] { 3, 5, 7 };
+                            GameType = GetGameType();
+                            exit = false;
+                            player1Turn = true;
+                        }
+                        else
+                        {
+                            playAgain = null;
+                        }
                     }
-                    else
-                    {
-                        gameExit = false;
-                        boardState = new int[] { 3, 5, 7 };
-                        GameType = GetGameType();
-                        exit = false;
-                        player1Turn = true;
-                    }
+                }
+                else
+                {
+                    turns--;
                 }
             }
         }
@@ -150,10 +162,10 @@ namespace NimGame
             {
                 Console.Write("What line do you wish to remove from?: ");
                 int.TryParse(Console.ReadLine(), out line);
-                //if (!(boardState[line - 1] > 0))
-                //{
-                //    line = -1;
-                //}
+                if (line > 0 && line <=3 && !(boardState[line - 1] > 0))
+                {
+                    line = -1;
+                }
             }
 
             while (count > boardState[line - 1] || count <= 0)
