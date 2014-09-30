@@ -36,13 +36,6 @@ namespace NimGame.Models
             foreach (int[] intarr in moves)
             {
                 Array.Sort(intarr);
-
-                // odd or even determines who won.
-                // first move added in is the first move, not initial board state.
-                if (moves.Count % 2 == 0)
-                {
-                    // multiply everything by -1 for first player
-                }
             }
         }
     }

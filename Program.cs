@@ -18,6 +18,16 @@ using System.Threading.Tasks;
  * computer vs computer
  */ 
 
+
+// take board total board states from game, find winner, and add data into a collection for potential moves (method)
+// 
+// create a random move method if nothing exists inside the collection already established.
+//
+// take what the best move is from the collection and return a new board state. (method) 
+//
+// help with problems others are having
+
+
 namespace NimGame
 {
     public class Program
@@ -41,11 +51,15 @@ namespace NimGame
             bool player1Turn = true;
             bool exit = false;
             bool gameExit = false;
+            int turns = -1;
 
             while (!gameExit)
             {
+                GameMoves.Add(boardState);
+
                 while (!exit)
                 {
+                    
                     if (GameType == NimGame.GameType.TwoPlayer)
                     {
                         Console.WriteLine();
@@ -69,8 +83,6 @@ namespace NimGame
 
                     else
                     {
-                        int turns = -1;
-
                         Console.WriteLine();
                         Console.WriteLine();
                         Console.WriteLine();
@@ -80,12 +92,8 @@ namespace NimGame
                             int.TryParse(Console.ReadLine(), out turns);
                         }
 
-                        // fix this for loop, doesn't add to the ai game for processing.
-                        for (int i = 0; i < turns; i++)
-                        {
                             GameMoves.Add(GetComputerInput());
                             GameMoves.Add(GetComputerInput());
-                        }
                     }
 
                     foreach (int i in boardState)
@@ -105,17 +113,25 @@ namespace NimGame
                 }
                 computer.AddGame(GameMoves);
                 GameMoves.Clear();
-
-                Console.WriteLine("Do you want to play again? y/n");
-                string playAgain = Console.ReadLine();
-                if (playAgain.ToUpper() == "Y" || playAgain.ToUpper() == "YES")
+                Console.WriteLine(player1Turn ? "Player 1 wins!!!" : "Player 2 wins!!!");
+                Console.WriteLine();
+                Console.WriteLine();
+                if (turns <= 0)
                 {
-                    gameExit = true;
-                }
-                else
-                {
-                    gameExit = false;
-                    GetGameType();
+                    Console.WriteLine("Do you want to play again? y/n");
+                    string playAgain = Console.ReadLine();
+                    if (playAgain.ToUpper() == "N" || playAgain.ToUpper() == "NO")
+                    {
+                        gameExit = true;
+                    }
+                    else
+                    {
+                        gameExit = false;
+                        boardState = new int[] { 3, 5, 7 };
+                        GameType = GetGameType();
+                        exit = false;
+                        player1Turn = true;
+                    }
                 }
             }
         }
