@@ -48,6 +48,7 @@ namespace NimGame.Models
                     row = rand.Next(3);
                 }
                 returnMove.BoardSetup[row] = returnMove.BoardSetup[row] - (rand.Next(1, returnMove.BoardSetup[row]));
+
             }
 
             return new int[] {returnMove.BoardSetup[0], returnMove.BoardSetup[1], returnMove.BoardSetup[2]};
