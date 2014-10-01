@@ -74,8 +74,11 @@ namespace NimGame.Models
                 if (!isThere)
                 {
                     Move newMove = new Move(moves[i]);
-                    newMove.IsMove(moves[i + 1], value);
-                    movesPossible.Add(newMove);
+                    if (i + 1 != moves.Count)
+                    {
+                        newMove.IsMove(moves[i + 1], value);
+                        movesPossible.Add(newMove);
+                    }
                 }
 
                 win *= -1;
