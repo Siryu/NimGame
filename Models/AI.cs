@@ -22,7 +22,7 @@ namespace NimGame.Models
 
             foreach (Move m in movesPossible)
             {
-                if (m.BoardSetup == boardState)
+                if (m.BoardSetup[0] == boardState[0] && m.BoardSetup[1] == boardState[1] && m.BoardSetup[2] == boardState[2])
                 {
                     foreach (Move n in m.NextMove)
                     {
