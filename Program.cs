@@ -94,6 +94,12 @@ namespace NimGame
 
                         GameMoves.Add(GetComputerInput());
                         GameMoves.Add(GetComputerInput());
+
+
+                        gameExit = false;
+                        GameType = GetGameType();
+                        exit = false;
+                        turns = -1;
                     }
 
                     foreach (int i in boardState)
