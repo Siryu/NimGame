@@ -56,7 +56,7 @@ namespace NimGame
 
             while (!gameExit)
             {
-                GameMoves.Add(boardState);
+                GameMoves.Add(new int[] {boardState[0], boardState[1], boardState[2]});
 
                 while (!exit)
                 {
@@ -185,7 +185,7 @@ namespace NimGame
 
             boardState[line - 1] = boardState[line - 1] - count;
 
-            return boardState;
+            return new int[] {boardState[0], boardState[1], boardState[2]};
         }
 
         public void PrintBoard()
