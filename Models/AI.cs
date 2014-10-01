@@ -43,7 +43,7 @@ namespace NimGame.Models
                 // needs some work on a random move play by a computer player.
                 
                 int row = rand.Next(3);
-                returnMove.BoardSetup[row] = returnMove.BoardSetup[row] - (returnMove.BoardSetup[row] - rand.Next(returnMove.BoardSetup[row]) + 1); 
+                returnMove.BoardSetup[row] = returnMove.BoardSetup[row] - (returnMove.BoardSetup[row] - (rand.Next(returnMove.BoardSetup[row]) + 1)); 
             }
 
             return returnMove.BoardSetup;
