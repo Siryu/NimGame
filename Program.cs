@@ -117,7 +117,8 @@ namespace NimGame
                 {
                     p1Wins++;
                 }
-                else{
+                else
+                {
                     p2Wins++;
                 }
                 Console.WriteLine(player1Turn ? "Player 1 wins!!!" : "Player 2 wins!!!");

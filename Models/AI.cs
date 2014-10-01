@@ -8,36 +8,28 @@ namespace NimGame.Models
 {
     public class AI
     {
-        Dictionary<int[], Dictionary<int[], float>> moveLog;
-        Dictionary<int[], float> MoveValues;
+        List<Move> movesPossible;
 
         public AI()
         {
-            MoveValues = new Dictionary<int[], float>();
-            moveLog = new Dictionary<int[],Dictionary<int[], float>>();
+            movesPossible = new List<Move>();
         }
 
         public int[] calculateTurn(int[] boardState)
         {
-            KeyValuePair<int[], float> returnValue = new KeyValuePair<int[],float>(boardState, 0f);
-            Array.Sort(boardState);
-
-            foreach (KeyValuePair<int[], float> kvp in MoveValues)
+            foreach (Move m in movesPossible)
             {
-                if (returnValue.Key == boardState || kvp.Value >= returnValue.Value)
+                if (m.BoardSetup == boardState)
                 {
-                    returnValue = kvp;
+
                 }
             }
-
-            return returnValue.Key;
         }
 
         public void AddGame(List<int[]> moves)
         {
             foreach (int[] intarr in moves)
             {
-                Array.Sort(intarr);
                 foreach (int[] key in moveLog.Keys)
                 {
                     if (key[0] == intarr[0] && key[1] == intarr[1] && key[2] == intarr[2])
