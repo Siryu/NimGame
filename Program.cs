@@ -82,13 +82,13 @@ namespace NimGame
                     }
 
                     else
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine("How many rounds would you like to go?");
+                    {                  
                         while (turns <= 0)
                         {
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("How many rounds would you like to go?");
                             int.TryParse(Console.ReadLine(), out turns);
                         }
 
@@ -113,6 +113,7 @@ namespace NimGame
                 }
                 computer.AddGame(GameMoves);
                 GameMoves.Clear();
+                boardState = new int[] { 3, 5, 7 };
                 if (player1Turn) 
                 {
                     p1Wins++;
@@ -122,9 +123,10 @@ namespace NimGame
                     p2Wins++;
                 }
                 Console.WriteLine(player1Turn ? "Player 1 wins!!!" : "Player 2 wins!!!");
+                player1Turn = true;
                 Console.WriteLine();
                 Console.WriteLine();
-                if (turns <= 0)
+                if (turns <= 1)
                 {
                     string playAgain = null;
 
@@ -139,10 +141,9 @@ namespace NimGame
                         else if (playAgain.ToUpper() == "Y" || playAgain.ToUpper() == "YES")
                         {
                             gameExit = false;
-                            boardState = new int[] { 3, 5, 7 };
                             GameType = GetGameType();
                             exit = false;
-                            player1Turn = true;
+                            turns = -1;
                         }
                         else
                         {
@@ -153,6 +154,7 @@ namespace NimGame
                 else
                 {
                     turns--;
+                    exit = false;
                 }
             }
         }

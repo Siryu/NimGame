@@ -41,12 +41,16 @@ namespace NimGame.Models
             {
                 
                 // needs some work on a random move play by a computer player.
-                
                 int row = rand.Next(3);
-                returnMove.BoardSetup[row] = returnMove.BoardSetup[row] - (returnMove.BoardSetup[row] - rand.Next(returnMove.BoardSetup[row]) + 1); 
+
+                while (returnMove.BoardSetup[row] == 0)
+                {
+                    row = rand.Next(3);
+                }
+                returnMove.BoardSetup[row] = returnMove.BoardSetup[row] - (rand.Next(1, returnMove.BoardSetup[row]));
             }
 
-            return returnMove.BoardSetup;
+            return new int[] {returnMove.BoardSetup[0], returnMove.BoardSetup[1], returnMove.BoardSetup[2]};
         }
 
         public void AddGame(List<int[]> moves)
