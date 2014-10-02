@@ -34,7 +34,7 @@ namespace NimGame.Models
             bool isAdded = false;
             foreach (Move m in NextMove)
             {
-                if (m.BoardSetup == next)
+                if (m.BoardSetup[0] == next[0] && m.BoardSetup[1] == next[1] && m.BoardSetup[2] == next[2])
                 {
                     float moveValue = m.Value * m.TimesSelected;
                     moveValue += value;

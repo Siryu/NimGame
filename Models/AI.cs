@@ -18,7 +18,7 @@ namespace NimGame.Models
 
         public int[] calculateTurn(int[] boardState)
         {
-            Move returnMove = new Move(boardState);
+            Move returnMove = new Move(boardState, 0f);
 
             foreach (Move m in movesPossible)
             {
@@ -34,22 +34,22 @@ namespace NimGame.Models
                             }
                         }
                     }
+                    if(returnMove.Value >= 0.0f)
+                    {
+                        returnMove = GetRandomState(boardState);
+                    }
                 }
             }
 
             if (returnMove.BoardSetup == boardState)
-            {     
-                // needs some work on a random move play by a computer player.
-                int row = rand.Next(3);
-
-                while (returnMove.BoardSetup[row] == 0)
-                {
-                    row = rand.Next(3);
-                }
-                returnMove.BoardSetup[row] = returnMove.BoardSetup[row] - (rand.Next(1, returnMove.BoardSetup[row]));
+            {
+                returnMove = GetRandomState(boardState);                
             }
 
-            return new int[] {returnMove.BoardSetup[0], returnMove.BoardSetup[1], returnMove.BoardSetup[2]};
+            boardState = returnMove.BoardSetup;
+
+            return boardState;
+            //return new int[] {returnMove.BoardSetup[0], returnMove.BoardSetup[1], returnMove.BoardSetup[2]};
         }
 
         public void AddGame(List<int[]> moves)
@@ -65,7 +65,7 @@ namespace NimGame.Models
                 
                 foreach (Move m in movesPossible)
                 {
-                    if (m.BoardSetup == moves[i])
+                    if (m.BoardSetup[0] == moves[i][0] && m.BoardSetup[1] == moves[i][1] && m.BoardSetup[2] == moves[i][2])
                     {
                         isThere = true;
                         if (i + 1 != moves.Count)
@@ -86,6 +86,19 @@ namespace NimGame.Models
 
                 win *= -1;
             }
+        }
+
+        private Move GetRandomState(int[] state)
+        {
+            int row = rand.Next(3);
+
+            while (state[row] == 0)
+            {
+                row = rand.Next(3);
+            }
+            state[row] = state[row] - (rand.Next(1, state[row]));
+
+            return new Move(state);
         }
     }
 }

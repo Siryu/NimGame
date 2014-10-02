@@ -93,13 +93,6 @@ namespace NimGame
                         }
 
                         GameMoves.Add(GetComputerInput());
-                        GameMoves.Add(GetComputerInput());
-
-
-                        gameExit = false;
-                        GameType = GetGameType();
-                        exit = false;
-                        turns = -1;
                     }
 
                     foreach (int i in boardState)
@@ -167,7 +160,14 @@ namespace NimGame
 
         public int[] GetComputerInput()
         {
-            return computer.calculateTurn(this.boardState);
+            // this is where it keeps freezing, i fixed it from freezing but it won't update the AI 
+            // properly at the end ... it makes all the moves the same, so i'm going to keep messing with
+            // the boardstate here and see what happens.
+
+
+            int[] returned = computer.calculateTurn(boardState);
+            this.boardState = returned;
+            return boardState;
         }
 
         public int[] GetUserInput()
