@@ -18,7 +18,7 @@ namespace NimGame.Models
 
         public int[] calculateTurn(int[] boardState)
         {
-            Move returnMove = new Move(boardState, 0f);
+            Move returnMove = new Move(new int[]{boardState[0], boardState[1], boardState[2]}, 0f);
 
             foreach (Move m in movesPossible)
             {
@@ -34,22 +34,13 @@ namespace NimGame.Models
                             }
                         }
                     }
-                    if(returnMove.Value >= 0.0f)
-                    {
-                        returnMove = GetRandomState(boardState);
-                    }
                 }
             }
-
-            if (returnMove.BoardSetup == boardState)
+            if (returnMove.Value >= 0.0f)
             {
                 returnMove = GetRandomState(boardState);                
             }
-
-            boardState = returnMove.BoardSetup;
-
-            return boardState;
-            //return new int[] {returnMove.BoardSetup[0], returnMove.BoardSetup[1], returnMove.BoardSetup[2]};
+            return returnMove.BoardSetup;
         }
 
         public void AddGame(List<int[]> moves)
@@ -71,6 +62,7 @@ namespace NimGame.Models
                         if (i + 1 != moves.Count)
                         {
                             m.IsMove(moves[i + 1], value);
+                            break;
                         }
                     }                       
                 }

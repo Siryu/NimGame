@@ -46,8 +46,7 @@ namespace NimGame.Models
 
             if (!isAdded)
             {
-                Move newMove = new Move(next);
-                newMove.Value = value;
+                Move newMove = new Move(next, value);
                 this.NextMove.Add(newMove);
             }
         }

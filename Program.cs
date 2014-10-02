@@ -60,7 +60,6 @@ namespace NimGame
 
                 while (!exit)
                 {
-                    
                     if (GameType == NimGame.GameType.TwoPlayer)
                     {
                         Console.WriteLine();
@@ -91,8 +90,9 @@ namespace NimGame
                             Console.WriteLine("How many rounds would you like to go?");
                             int.TryParse(Console.ReadLine(), out turns);
                         }
-
-                        GameMoves.Add(GetComputerInput());
+                        int[] temp = GetComputerInput();
+                        GameMoves.Add(new int[]{temp[0], temp[1], temp[2]});
+                        Console.WriteLine(temp[0] + " " + temp[1] + " " + temp[2]);
                     }
 
                     foreach (int i in boardState)
@@ -160,13 +160,8 @@ namespace NimGame
 
         public int[] GetComputerInput()
         {
-            // this is where it keeps freezing, i fixed it from freezing but it won't update the AI 
-            // properly at the end ... it makes all the moves the same, so i'm going to keep messing with
-            // the boardstate here and see what happens.
-
-
-            int[] returned = computer.calculateTurn(boardState);
-            this.boardState = returned;
+            boardState = computer.calculateTurn(boardState);
+            
             return boardState;
         }
 
