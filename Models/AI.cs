@@ -28,9 +28,10 @@ namespace NimGame.Models
                     {
                         if (n.Value < returnMove.Value)
                         {
-                            if ((n.BoardSetup[0] <= boardState[0] && n.BoardSetup[1] == boardState[1] && n.BoardSetup[2] == boardState[2]) ||
-                                (n.BoardSetup[0] == boardState[0] && n.BoardSetup[1] <= boardState[1] && n.BoardSetup[2] == boardState[2]) ||
-                                (n.BoardSetup[0] == boardState[0] && n.BoardSetup[1] == boardState[1] && n.BoardSetup[2] <= boardState[2]))
+                            if ((n.BoardSetup[0] < boardState[0] && n.BoardSetup[1] == boardState[1] && n.BoardSetup[2] == boardState[2]) ||
+                                (n.BoardSetup[0] == boardState[0] && n.BoardSetup[1] < boardState[1] && n.BoardSetup[2] == boardState[2]) ||
+                                (n.BoardSetup[0] == boardState[0] && n.BoardSetup[1] == boardState[1] && n.BoardSetup[2] < boardState[2]))
+
                             {
                                 returnMove = n;
                             }
@@ -47,7 +48,7 @@ namespace NimGame.Models
 
         public void AddGame(List<int[]> moves)
         {
-            int win = moves.Count % 2 == 0 ? 1 : -1;
+            int win = moves.Count % 2 == 0 ? -1 : 1;
 
             for(int i = 0; i < moves.Count; i++)
             {
