@@ -32,6 +32,7 @@ namespace NimGame.Models
         public void IsMove(int[] next, float value)
         {
             bool isAdded = false;
+
             foreach (Move m in NextMove)
             {
                 if (m.BoardSetup[0] == next[0] && m.BoardSetup[1] == next[1] && m.BoardSetup[2] == next[2])
@@ -46,6 +47,8 @@ namespace NimGame.Models
 
             if (!isAdded)
             {
+                //Console.WriteLine("for " + BoardSetup[0] + " " + BoardSetup[1] + " " + BoardSetup[2]);
+                //Console.WriteLine("adding next as " + next[0] + " " + next[1] + " " + next[2]);
                 Move newMove = new Move(next, value);
                 this.NextMove.Add(newMove);
             }

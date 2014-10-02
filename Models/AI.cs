@@ -26,9 +26,11 @@ namespace NimGame.Models
                 {
                     foreach (Move n in m.NextMove)
                     {
-                        if (n.Value <= returnMove.Value)
+                        if (n.Value < returnMove.Value)
                         {
-                            if (n.BoardSetup[0] <= boardState[0] && n.BoardSetup[1] <= boardState[1] && n.BoardSetup[2] <= boardState[2])
+                            if ((n.BoardSetup[0] <= boardState[0] && n.BoardSetup[1] == boardState[1] && n.BoardSetup[2] == boardState[2]) ||
+                                (n.BoardSetup[0] == boardState[0] && n.BoardSetup[1] <= boardState[1] && n.BoardSetup[2] == boardState[2]) ||
+                                (n.BoardSetup[0] == boardState[0] && n.BoardSetup[1] == boardState[1] && n.BoardSetup[2] <= boardState[2]))
                             {
                                 returnMove = n;
                             }
@@ -53,10 +55,10 @@ namespace NimGame.Models
                 float value;
 
                 value = ((float)(i + 1) / moves.Count) * win;
-                
+
                 foreach (Move m in movesPossible)
                 {
-                    if (m.BoardSetup[0] == moves[i][0] && m.BoardSetup[1] == moves[i][1] && m.BoardSetup[2] == moves[i][2])
+                    if (m.BoardSetup[0] == (moves[i])[0] && m.BoardSetup[1] == (moves[i])[1] && m.BoardSetup[2] == (moves[i])[2])
                     {
                         isThere = true;
                         if (i + 1 != moves.Count)
@@ -64,7 +66,7 @@ namespace NimGame.Models
                             m.IsMove(moves[i + 1], value);
                             break;
                         }
-                    }                       
+                    }
                 }
                 if (!isThere)
                 {
