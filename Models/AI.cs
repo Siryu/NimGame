@@ -38,8 +38,7 @@ namespace NimGame.Models
             }
 
             if (returnMove.BoardSetup == boardState)
-            {
-                
+            {     
                 // needs some work on a random move play by a computer player.
                 int row = rand.Next(3);
 
@@ -48,7 +47,6 @@ namespace NimGame.Models
                     row = rand.Next(3);
                 }
                 returnMove.BoardSetup[row] = returnMove.BoardSetup[row] - (rand.Next(1, returnMove.BoardSetup[row]));
-
             }
 
             return new int[] {returnMove.BoardSetup[0], returnMove.BoardSetup[1], returnMove.BoardSetup[2]};
