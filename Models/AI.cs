@@ -28,7 +28,7 @@ namespace NimGame.Models
                     {
                         if (n.Value <= returnMove.Value)
                         {
-                            if (n.BoardSetup[0] <= boardState[0] && n.BoardSetup[1] <= boardState[1] && n.BoardSetup[2] <= boardState[2])
+                            if ((n.BoardSetup[0] < boardState[0] && n.BoardSetup[1] == boardState[1] && n.BoardSetup[2] == boardState[2]) || (n.BoardSetup[0] == boardState[0] && n.BoardSetup[1] < boardState[1] && n.BoardSetup[2] == boardState[2]) || (n.BoardSetup[0] == boardState[0] && n.BoardSetup[1] == boardState[1] && n.BoardSetup[2] < boardState[2]))
                             {
                                 returnMove = n;
                             }
