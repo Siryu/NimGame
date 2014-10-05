@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NimGame.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,11 @@ namespace NimGame.Models
     {
         List<Move> movesPossible;
         Random rand = new Random();
+        MoveManipulator mm;
 
-        public AI()
+        public AI(MoveManipulator mm)
         {
+            this.mm = mm;
             movesPossible = new List<Move>();
         }
 
@@ -64,7 +67,7 @@ namespace NimGame.Models
                         isThere = true;
                         if (i + 1 != moves.Count)
                         {
-                            m.IsMove(moves[i + 1], value);
+                            mm.IsMove(moves[i + 1], m, value);
                             break;
                         }
                     }
@@ -74,7 +77,7 @@ namespace NimGame.Models
                     Move newMove = new Move(moves[i]);
                     if (i + 1 != moves.Count)
                     {
-                        newMove.IsMove(moves[i + 1], value);
+                        mm.IsMove(moves[i + 1], newMove, value);
                         movesPossible.Add(newMove);
                     }
                 }

@@ -1,4 +1,5 @@
-﻿using NimGame.Models;
+﻿using NimGame.Controllers;
+using NimGame.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace NimGame
 {
     public class Program
     {
+        MoveManipulator mm;
         AI computer;
         List<int[]> GameMoves;
         int[] boardState;
@@ -44,7 +46,8 @@ namespace NimGame
             GameMoves = new List<int[]>();      
             
             GameType = GetGameType();
-            computer = new AI();
+            mm = new MoveManipulator();
+            computer = new AI(mm);
         }
 
         public void Game()
@@ -123,6 +126,10 @@ namespace NimGame
                 }
                 Console.WriteLine(player1Turn ? "Player 1 wins!!!" : "Player 2 wins!!!");
                 player1Turn = true;
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("Player One wins: " + p1Wins);
+                Console.WriteLine("Player Two wins: " + p2Wins);
                 Console.WriteLine();
                 Console.WriteLine();
                 if (turns <= 1)

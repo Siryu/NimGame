@@ -13,15 +13,7 @@ namespace NimGame.Models
         public int TimesSelected { get; set; }
         public List<Move> NextMove;
 
-        public Move(int[] boardSetup)
-        {
-            this.NextMove = new List<Move>();
-            this.BoardSetup = boardSetup;
-            this.Value = 0f;
-            this.TimesSelected = 1;
-        }
-
-        public Move(int[] boardSetup, float value)
+        public Move(int[] boardSetup, float value = 0f)
         {
             this.NextMove = new List<Move>();
             this.BoardSetup = boardSetup;
@@ -47,8 +39,6 @@ namespace NimGame.Models
 
             if (!isAdded)
             {
-                //Console.WriteLine("for " + BoardSetup[0] + " " + BoardSetup[1] + " " + BoardSetup[2]);
-                //Console.WriteLine("adding next as " + next[0] + " " + next[1] + " " + next[2]);
                 Move newMove = new Move(next, value);
                 this.NextMove.Add(newMove);
             }
