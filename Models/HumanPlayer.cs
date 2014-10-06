@@ -32,7 +32,7 @@ namespace NimGame.Models
 
             boardState[line - 1] = boardState[line - 1] - count;
 
-            return new int[] { boardState[0], boardState[1], boardState[2] };
+            return boardState;
         }
     }
 }

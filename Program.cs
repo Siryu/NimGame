@@ -32,7 +32,8 @@ namespace NimGame
     {
         MoveOperations moveOps;
         List<int[]> GameMoves;
-        int[] boardState, startingState;
+        Board board;
+        //int[] boardState, startingState;
         GameType GameType;
         Player player1;
         Player player2;
@@ -41,8 +42,8 @@ namespace NimGame
         public Program(int row1 = 3, int row2 = 5, int row3 = 7)
         {
             GameType = GetGameType();
-            startingState = new int[] { row1, row2, row3 };
-            ResetBoardState();
+            board = new Board(row1, row2, row3);
+            board.ResetBoardState();
             GameMoves = new List<int[]>();      
             moveOps = new MoveOperations();
             ai = new AI(moveOps);
@@ -57,7 +58,7 @@ namespace NimGame
 
             while (!gameExit)
             {
-                GameMoves.Add(new int[] {boardState[0], boardState[1], boardState[2]});
+                GameMoves.Add(board.getState());
 
                 while (!exit)
                 {
@@ -73,10 +74,12 @@ namespace NimGame
                     Console.WriteLine();
                     Console.WriteLine();
                     Console.WriteLine(player1.getTurn() ? "Player 1's turn" : "Player 2's turn");
-                    PrintBoard();
-                    GameMoves.Add(player1.getTurn() ? player1.getPlayerMove(this.boardState) : player2.getPlayerMove(this.boardState));    
+                    board.PrintBoard();
+                    board.setState(player1.getTurn() ? player1.getPlayerMove(board.getState()) : player2.getPlayerMove(board.getState()));
+                    GameMoves.Add(board.getState());    
+                    
 
-                    foreach (int i in boardState)
+                    foreach (int i in board.getState())
                     {
                         if (i != 0)
                         {
@@ -94,7 +97,8 @@ namespace NimGame
                 ai.AddGame(GameMoves);
                 GameMoves.Clear();
 
-                ResetBoardState();
+                board.ResetBoardState();
+
                 if (player1.getTurn()) 
                 {
                     player1.setWins(player1.getWins() + 1);
@@ -107,8 +111,8 @@ namespace NimGame
                 Console.WriteLine(player1.getTurn() ? "Player 1 wins!!!" : "Player 2 wins!!!");
                 player1.setTurn(true);
    
-                Console.WriteLine("\n\nPlayer One wins: " + player1.getWins() + "\n\n");
-                Console.WriteLine("\n\nPlayer Two wins: " + player2.getWins() + "\n\n");
+                Console.WriteLine("\n\nPlayer One wins: " + player1.getWins());
+                Console.WriteLine("Player Two wins: " + player2.getWins() + "\n\n");
                
                 if (turns <= 1)
                 {
@@ -155,33 +159,6 @@ namespace NimGame
                 }
             }
                  return returnBool;
-        }
-
-        public void ResetBoardState()
-        {
-            boardState = new int[startingState.Length];
-            for (int i = 0; i < startingState.Length; ++i)
-            {
-                boardState[i] = startingState[i];
-            }
-        }
-
-
-
-        public void PrintBoard()
-        {
-            Console.WriteLine();
-            for (int i = 0; i < 3; i++)
-            {
-                Console.Write(i + 1 + ". ");
-
-                for (int j = 0; j < boardState[i]; j++)
-                {
-                    Console.Write("X");
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine();
         }
 
         public GameType GetGameType()
