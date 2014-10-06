@@ -155,7 +155,7 @@ namespace NimGame
             boardState = new int[startingState.Length];
             for (int i = 0; i < startingState.Length; ++i)
             {
-                boardState[i] = startingState[0];
+                boardState[i] = startingState[i];
             }
         }
 
