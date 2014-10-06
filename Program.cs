@@ -2,9 +2,6 @@
 using NimGame.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
  * create Nim game that learns the more you play the game
@@ -33,23 +30,22 @@ namespace NimGame
 {
     public class Program
     {
-        MoveOperations mm;
+        MoveOperations moveOps;
         List<int[]> GameMoves;
-        int[] boardState;
+        int[] boardState, startingState;
         GameType GameType;
         Player player1;
         Player player2;
         AI ai;
 
-        public Program()
+        public Program(int row1 = 3, int row2 = 5, int row3 = 7)
         {
-            boardState = new int[] {3, 5, 7};
-            GameMoves = new List<int[]>();
-
-            mm = new MoveOperations();
-            ai = new AI(mm);
-
             GameType = GetGameType();
+            startingState = new int[] { row1, row2, row3 };
+            ResetBoardState();
+            GameMoves = new List<int[]>();      
+            moveOps = new MoveOperations();
+            ai = new AI(moveOps);
             createPlayerTypes();
         }
 
@@ -65,18 +61,14 @@ namespace NimGame
 
                 while (!exit)
                 {
-                    if (GameType == NimGame.GameType.Computer)
+                    if(GameType == NimGame.GameType.Computer)
                     {
                         while (turns <= 0)
                         {
-                            Console.WriteLine();
-                            Console.WriteLine();
-                            Console.WriteLine();
-                            Console.WriteLine("How many rounds would you like to go?");
+                            Console.WriteLine("\n\n\n" + "How many rounds would you like to go?");
                             int.TryParse(Console.ReadLine(), out turns);
                         }
-                    } 
-
+                    }
                     Console.WriteLine();
                     Console.WriteLine();
                     Console.WriteLine();
@@ -101,7 +93,8 @@ namespace NimGame
                 }
                 ai.AddGame(GameMoves);
                 GameMoves.Clear();
-                boardState = new int[] { 3, 5, 7 };
+
+                ResetBoardState();
                 if (player1.getTurn()) 
                 {
                     player1.setWins(player1.getWins() + 1);
@@ -110,14 +103,12 @@ namespace NimGame
                 {
                     player2.setWins(player2.getWins() + 1);
                 }
+
                 Console.WriteLine(player1.getTurn() ? "Player 1 wins!!!" : "Player 2 wins!!!");
                 player1.setTurn(true);
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Player One wins: " + player1.getWins());
-                Console.WriteLine("Player Two wins: " + player2.getWins());
-                Console.WriteLine();
-                Console.WriteLine();
+   
+                Console.WriteLine("\n\nPlayer One wins: " + player1.getWins() + "\n\n");
+                Console.WriteLine("\n\nPlayer Two wins: " + player2.getWins() + "\n\n");
                
                 if (turns <= 1)
                 {
@@ -133,6 +124,7 @@ namespace NimGame
                 }
             }
         }
+
 
         private bool PromptToPlayAgain()
         {
@@ -162,8 +154,19 @@ namespace NimGame
                     playAgain = null;
                 }
             }
-            return returnBool;
+                 return returnBool;
         }
+
+        public void ResetBoardState()
+        {
+            boardState = new int[startingState.Length];
+            for (int i = 0; i < startingState.Length; ++i)
+            {
+                boardState[i] = startingState[i];
+            }
+        }
+
+
 
         public void PrintBoard()
         {
@@ -226,12 +229,6 @@ namespace NimGame
                         break;
                     }
             }
-        }
-
-        public static void Main(string[] args)
-        {
-            Program prog = new Program();
-            prog.Game();
         }
     }
 }
