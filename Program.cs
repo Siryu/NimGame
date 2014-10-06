@@ -30,7 +30,7 @@ namespace NimGame
 {
     public class Program
     {
-        MoveOperations mm;
+        MoveOperations moveOps;
         AI computer;
         List<int[]> GameMoves;
         int[] boardState;
@@ -43,8 +43,8 @@ namespace NimGame
             GameMoves = new List<int[]>();      
             
             GameType = GetGameType();
-            mm = new MoveOperations();
-            computer = new AI(mm);
+            moveOps = new MoveOperations();
+            computer = new AI(moveOps);
         }
 
         public void Game()
@@ -231,13 +231,6 @@ namespace NimGame
             }
 
             return (GameType)(Enum.GetValues(typeof(GameType)).GetValue(userInput - 1));
-        }
-
-
-        public static void Main(string[] args)
-        {
-            Program prog = new Program();
-            prog.Game();
         }
     }
 }
