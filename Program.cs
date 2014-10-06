@@ -55,26 +55,9 @@ namespace NimGame
 
                     player1.setTurn(!player1.getTurn());
                 }
-                ai.AddGame(GameMoves);
-                GameMoves.Clear();
 
-                board.ResetBoardState();
+                roundOver();
 
-                if (player1.getTurn()) 
-                {
-                    player1.setWins(player1.getWins() + 1);
-                }
-                else
-                {
-                    player2.setWins(player2.getWins() + 1);
-                }
-
-                Console.WriteLine(player1.getTurn() ? "Player 1 wins!!!" : "Player 2 wins!!!");
-                player1.setTurn(true);
-   
-                Console.WriteLine("\n\nPlayer One wins: " + player1.getWins());
-                Console.WriteLine("Player Two wins: " + player2.getWins() + "\n\n");
-               
                 if (turns <= 1)
                 {
                     bool exitGame = PromptToPlayAgain();
@@ -88,6 +71,29 @@ namespace NimGame
                     exit = false;
                 }
             }
+        }
+
+        private void roundOver()
+        {
+            ai.AddGame(GameMoves);
+            GameMoves.Clear();
+
+            board.ResetBoardState();
+
+            if (player1.getTurn())
+            {
+                player1.setWins(player1.getWins() + 1);
+            }
+            else
+            {
+                player2.setWins(player2.getWins() + 1);
+            }
+
+            Console.WriteLine(player1.getTurn() ? "Player 1 wins!!!" : "Player 2 wins!!!");
+            player1.setTurn(true);
+
+            Console.WriteLine("\n\nPlayer One wins: " + player1.getWins());
+            Console.WriteLine("Player Two wins: " + player2.getWins() + "\n\n");
         }
 
         private bool checkForEndOfRound()
