@@ -34,25 +34,27 @@ namespace NimGame
     public class Program
     {
         MoveOperations mm;
-        AI computer;
         List<int[]> GameMoves;
         int[] boardState;
         GameType GameType;
-        int p1Wins = 0, p2Wins = 0;
+        Player player1;
+        Player player2;
+        AI ai;
 
         public Program()
         {
             boardState = new int[] {3, 5, 7};
-            GameMoves = new List<int[]>();      
-            
-            GameType = GetGameType();
+            GameMoves = new List<int[]>();
+
             mm = new MoveOperations();
-            computer = new AI(mm);
+            ai = new AI(mm);
+
+            GameType = GetGameType();
+            createPlayerTypes();
         }
 
         public void Game()
         {
-            bool player1Turn = true;
             bool exit = false;
             bool gameExit = false;
             int turns = -1;
@@ -63,28 +65,8 @@ namespace NimGame
 
                 while (!exit)
                 {
-                    if (GameType == NimGame.GameType.TwoPlayer)
+                    if (GameType == NimGame.GameType.Computer)
                     {
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine(player1Turn ? "Player 1's turn" : "Player 2's turn");
-                        PrintBoard();
-                        GameMoves.Add(GetUserInput());
-                    }
-
-                    else if (GameType == NimGame.GameType.OnePlayer)
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine(player1Turn ? "Player 1's turn" : "Computer's turn");
-                        PrintBoard();
-                        GameMoves.Add(player1Turn ? GetUserInput() : GetComputerInput());
-                    }
-
-                    else
-                    {                  
                         while (turns <= 0)
                         {
                             Console.WriteLine();
@@ -93,10 +75,14 @@ namespace NimGame
                             Console.WriteLine("How many rounds would you like to go?");
                             int.TryParse(Console.ReadLine(), out turns);
                         }
-                        int[] temp = GetComputerInput();
-                        GameMoves.Add(new int[]{temp[0], temp[1], temp[2]});
-                        Console.WriteLine(temp[0] + " " + temp[1] + " " + temp[2]);
-                    }
+                    } 
+
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine(player1.getTurn() ? "Player 1's turn" : "Player 2's turn");
+                    PrintBoard();
+                    GameMoves.Add(player1.getTurn() ? player1.getPlayerMove(this.boardState) : player2.getPlayerMove(this.boardState));    
 
                     foreach (int i in boardState)
                     {
@@ -111,51 +97,34 @@ namespace NimGame
                         }
                     }
 
-                    player1Turn = !player1Turn;
+                    player1.setTurn(!player1.getTurn());
                 }
-                computer.AddGame(GameMoves);
+                ai.AddGame(GameMoves);
                 GameMoves.Clear();
                 boardState = new int[] { 3, 5, 7 };
-                if (player1Turn) 
+                if (player1.getTurn()) 
                 {
-                    p1Wins++;
+                    player1.setWins(player1.getWins() + 1);
                 }
                 else
                 {
-                    p2Wins++;
+                    player2.setWins(player2.getWins() + 1);
                 }
-                Console.WriteLine(player1Turn ? "Player 1 wins!!!" : "Player 2 wins!!!");
-                player1Turn = true;
+                Console.WriteLine(player1.getTurn() ? "Player 1 wins!!!" : "Player 2 wins!!!");
+                player1.setTurn(true);
                 Console.WriteLine();
                 Console.WriteLine();
-                Console.WriteLine("Player One wins: " + p1Wins);
-                Console.WriteLine("Player Two wins: " + p2Wins);
+                Console.WriteLine("Player One wins: " + player1.getWins());
+                Console.WriteLine("Player Two wins: " + player2.getWins());
                 Console.WriteLine();
                 Console.WriteLine();
+               
                 if (turns <= 1)
                 {
-                    string playAgain = null;
-
-                    while (playAgain == null)
-                    {
-                        Console.WriteLine("Do you want to play again? y/n");
-                        playAgain = Console.ReadLine().ToUpper();
-                        if (playAgain == "N" || playAgain == "NO")
-                        {
-                            gameExit = true;
-                        }
-                        else if (playAgain == "Y" || playAgain == "YES")
-                        {
-                            gameExit = false;
-                            GameType = GetGameType();
-                            exit = false;
-                            turns = -1;
-                        }
-                        else
-                        {
-                            playAgain = null;
-                        }
-                    }
+                    bool exitGame = PromptToPlayAgain();
+                    gameExit = exitGame;
+                    exit = exitGame;
+                    turns = -1;
                 }
                 else
                 {
@@ -165,37 +134,35 @@ namespace NimGame
             }
         }
 
-        public int[] GetComputerInput()
+        private bool PromptToPlayAgain()
         {
-            boardState = computer.calculateTurn(boardState);
-            
-            return boardState;
-        }
+            string playAgain = null;
+            bool returnBool = false;
 
-        public int[] GetUserInput()
-        {
-            int line = -1;
-            int count = -1;
-
-            while (line <= 0 || line > 3)
+            while (playAgain == null)
             {
-                Console.Write("What line do you wish to remove from?: ");
-                int.TryParse(Console.ReadLine(), out line);
-                if (line > 0 && line <=3 && !(boardState[line - 1] > 0))
+                Console.WriteLine("Do you want to play again? y/n");
+                playAgain = Console.ReadLine().ToUpper();
+                if (playAgain == "N" || playAgain == "NO")
                 {
-                    line = -1;
+                    returnBool = true;
+                }
+                else if (playAgain == "Y" || playAgain == "YES")
+                {
+                    returnBool = false;
+                    GameType newGame = GetGameType();
+                    if (newGame != GameType)
+                    {
+                        GameType = newGame;
+                        createPlayerTypes();
+                    }
+                }
+                else
+                {
+                    playAgain = null;
                 }
             }
-
-            while (count > boardState[line - 1] || count <= 0)
-            {
-                Console.Write("How many do you wish to remove from line " + line + "?: ");
-                int.TryParse(Console.ReadLine(), out count);
-            }
-
-            boardState[line - 1] = boardState[line - 1] - count;
-
-            return new int[] {boardState[0], boardState[1], boardState[2]};
+            return returnBool;
         }
 
         public void PrintBoard()
@@ -236,6 +203,30 @@ namespace NimGame
             return (GameType)(Enum.GetValues(typeof(GameType)).GetValue(userInput - 1));
         }
 
+        private void createPlayerTypes()
+        {
+            switch (GameType)
+            {
+                case NimGame.GameType.TwoPlayer:
+                    {
+                        player1 = new HumanPlayer();
+                        player2 = new HumanPlayer();
+                        break;
+                    }
+                case NimGame.GameType.OnePlayer:
+                    {
+                        player1 = new HumanPlayer();
+                        player2 = new AIPlayer(this.ai);
+                        break;
+                    }
+                case NimGame.GameType.Computer:
+                    {
+                        player1 = new AIPlayer(this.ai);
+                        player2 = new AIPlayer(this.ai);
+                        break;
+                    }
+            }
+        }
 
         public static void Main(string[] args)
         {
