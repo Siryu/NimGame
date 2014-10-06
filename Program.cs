@@ -62,20 +62,14 @@ namespace NimGame
                 {
                     if (GameType == NimGame.GameType.TwoPlayer)
                     {
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine(player1Turn ? "Player 1's turn" : "Player 2's turn");
+                        Console.WriteLine("\n\n\n" + (player1Turn ? "Player 1's turn" : "Player 2's turn"));
                         PrintBoard();
                         GameMoves.Add(GetUserInput());
                     }
 
                     else if (GameType == NimGame.GameType.OnePlayer)
                     {
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine(player1Turn ? "Player 1's turn" : "Computer's turn");
+                        Console.WriteLine("\n\n\n" + (player1Turn ? "Player 1's turn" : "Computer's turn"));
                         PrintBoard();
                         GameMoves.Add(player1Turn ? GetUserInput() : GetComputerInput());
                     }
@@ -84,10 +78,7 @@ namespace NimGame
                     {                  
                         while (turns <= 0)
                         {
-                            Console.WriteLine();
-                            Console.WriteLine();
-                            Console.WriteLine();
-                            Console.WriteLine("How many rounds would you like to go?");
+                            Console.WriteLine("\n\n\n" + "How many rounds would you like to go?");
                             int.TryParse(Console.ReadLine(), out turns);
                         }
                         int[] temp = GetComputerInput();
@@ -122,13 +113,9 @@ namespace NimGame
                     p2Wins++;
                 }
                 Console.WriteLine(player1Turn ? "Player 1 wins!!!" : "Player 2 wins!!!");
-                player1Turn = true;
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Player One wins: " + p1Wins);
-                Console.WriteLine("Player Two wins: " + p2Wins);
-                Console.WriteLine();
-                Console.WriteLine();
+                //player1Turn = true;
+                Console.WriteLine("\n\n" + "Player One wins: " + p1Wins);
+                Console.WriteLine("\n\n" + "Player Two wins: " + p2Wins + "\n\n");
                 if (turns <= 1)
                 {
                     string playAgain = null;
@@ -164,9 +151,7 @@ namespace NimGame
 
         public int[] GetComputerInput()
         {
-            boardState = computer.calculateTurn(boardState);
-            
-            return boardState;
+            return computer.calculateTurn(boardState);
         }
 
         public int[] GetUserInput()
