@@ -11,9 +11,9 @@ namespace NimGame.Models
     {
         List<Move> movesPossible;
         Random rand = new Random();
-        MoveManipulator mm;
+        MoveOperations mm;
 
-        public AI(MoveManipulator mm)
+        public AI(MoveOperations mm)
         {
             this.mm = mm;
             movesPossible = new List<Move>();

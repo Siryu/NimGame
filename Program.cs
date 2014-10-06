@@ -33,7 +33,7 @@ namespace NimGame
 {
     public class Program
     {
-        MoveManipulator mm;
+        MoveOperations mm;
         AI computer;
         List<int[]> GameMoves;
         int[] boardState;
@@ -46,7 +46,7 @@ namespace NimGame
             GameMoves = new List<int[]>();      
             
             GameType = GetGameType();
-            mm = new MoveManipulator();
+            mm = new MoveOperations();
             computer = new AI(mm);
         }
 
@@ -139,12 +139,12 @@ namespace NimGame
                     while (playAgain == null)
                     {
                         Console.WriteLine("Do you want to play again? y/n");
-                        playAgain = Console.ReadLine();
-                        if (playAgain.ToUpper() == "N" || playAgain.ToUpper() == "NO")
+                        playAgain = Console.ReadLine().ToUpper();
+                        if (playAgain == "N" || playAgain == "NO")
                         {
                             gameExit = true;
                         }
-                        else if (playAgain.ToUpper() == "Y" || playAgain.ToUpper() == "YES")
+                        else if (playAgain == "Y" || playAgain == "YES")
                         {
                             gameExit = false;
                             GameType = GetGameType();

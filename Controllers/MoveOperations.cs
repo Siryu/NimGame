@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NimGame.Controllers
 {
-    public class MoveManipulator
+    public class MoveOperations
     {
         public void IsMove(int[] next, Move currentMove, float value)
         {
