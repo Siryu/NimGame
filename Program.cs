@@ -151,7 +151,9 @@ namespace NimGame
 
         public int[] GetComputerInput()
         {
-            return computer.calculateTurn(boardState);
+            boardState = computer.calculateTurn(boardState);
+            
+            return boardState;
         }
 
         public int[] GetUserInput()
