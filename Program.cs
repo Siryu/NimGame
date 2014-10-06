@@ -3,29 +3,6 @@ using NimGame.Models;
 using System;
 using System.Collections.Generic;
 
-/*
- * create Nim game that learns the more you play the game
- * 3, 5, 7 X's in a row
- * can take as many items as you want from each row
- * goal is to get opposite player to take the last x in a row
- * no invalid moves
- * 
- * 3 game modes
- * user vs user
- * computer vs user
- * computer vs computer
- */ 
-
-
-// take board total board states from game, find winner, and add data into a collection for potential moves (method)
-// 
-// create a random move method if nothing exists inside the collection already established.
-//
-// take what the best move is from the collection and return a new board state. (method) 
-//
-// help with problems others are having
-
-
 namespace NimGame
 {
     public class Program
@@ -33,7 +10,6 @@ namespace NimGame
         MoveOperations moveOps;
         List<int[]> GameMoves;
         Board board;
-        //int[] boardState, startingState;
         GameType GameType;
         Player player1;
         Player player2;
@@ -43,7 +19,6 @@ namespace NimGame
         {
             GameType = GetGameType();
             board = new Board(row1, row2, row3);
-            board.ResetBoardState();
             GameMoves = new List<int[]>();      
             moveOps = new MoveOperations();
             ai = new AI(moveOps);
@@ -70,27 +45,13 @@ namespace NimGame
                             int.TryParse(Console.ReadLine(), out turns);
                         }
                     }
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Console.WriteLine(player1.getTurn() ? "Player 1's turn" : "Player 2's turn");
+
+                    Console.WriteLine("\n\n\n" + (player1.getTurn() ? "Player 1's turn" : "Player 2's turn"));
                     board.PrintBoard();
                     board.setState(player1.getTurn() ? player1.getPlayerMove(board.getState()) : player2.getPlayerMove(board.getState()));
-                    GameMoves.Add(board.getState());    
-                    
+                    GameMoves.Add(board.getState());
 
-                    foreach (int i in board.getState())
-                    {
-                        if (i != 0)
-                        {
-                            exit = false;
-                            break;
-                        }
-                        else
-                        {
-                            exit = true;
-                        }
-                    }
+                    exit = checkForEndOfRound();
 
                     player1.setTurn(!player1.getTurn());
                 }
@@ -129,6 +90,19 @@ namespace NimGame
             }
         }
 
+        private bool checkForEndOfRound()
+        {
+            bool returnBool = true;
+            foreach (int i in board.getState())
+            {
+                if (i != 0)
+                {
+                    returnBool = false;
+                    break;
+                }
+            }
+            return returnBool;
+        }
 
         private bool PromptToPlayAgain()
         {
