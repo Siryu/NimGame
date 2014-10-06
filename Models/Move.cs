@@ -21,27 +21,6 @@ namespace NimGame.Models
             this.TimesSelected = 1;
         }
 
-        public void IsMove(int[] next, float value)
-        {
-            bool isAdded = false;
-
-            foreach (Move m in NextMove)
-            {
-                if (m.BoardSetup[0] == next[0] && m.BoardSetup[1] == next[1] && m.BoardSetup[2] == next[2])
-                {
-                    float moveValue = m.Value * m.TimesSelected;
-                    moveValue += value;
-                    m.TimesSelected += 1;
-                    m.Value = moveValue / m.TimesSelected;
-                    isAdded = true;
-                }
-            }
-
-            if (!isAdded)
-            {
-                Move newMove = new Move(next, value);
-                this.NextMove.Add(newMove);
-            }
-        }
+        
     }
 }
