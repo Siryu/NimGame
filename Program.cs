@@ -2,9 +2,6 @@
 using NimGame.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /*
  * create Nim game that learns the more you play the game
