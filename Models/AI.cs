@@ -8,11 +8,9 @@ namespace NimGame.Models
     {
         List<Move> movesPossible;
         Random rand = new Random();
-        MoveOperations mm;
 
-        public AI(MoveOperations mm)
+        public AI()
         {
-            this.mm = mm;
             movesPossible = new List<Move>();
         }
 
@@ -29,12 +27,12 @@ namespace NimGame.Models
 
                 foreach (Move m in movesPossible)
                 {
-                    if (m.BoardSetup[0] == (moves[i])[0] && m.BoardSetup[1] == (moves[i])[1] && m.BoardSetup[2] == (moves[i])[2])
+                    if(MoveOperations.AreEqual(m.BoardSetup, moves[i]))
                     {
                         isThere = true;
                         if (i + 1 != moves.Count)
                         {
-                            mm.IsMove(moves[i + 1], m, value);
+                            MoveOperations.IsMove(moves[i + 1], m, value);
                             break;
                         }
                     }
@@ -44,7 +42,7 @@ namespace NimGame.Models
                     Move newMove = new Move(moves[i]);
                     if (i + 1 != moves.Count)
                     {
-                        mm.IsMove(moves[i + 1], newMove, value);
+                        MoveOperations.IsMove(moves[i + 1], newMove, value);
                         movesPossible.Add(newMove);
                     }
                 }

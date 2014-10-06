@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace NimGame.Controllers
 {
-    public class MoveOperations
+    public static class MoveOperations
     {
-        public void IsMove(int[] next, Move currentMove, float value)
+        public static void IsMove(int[] next, Move currentMove, float value)
         {
             bool isAdded = false;
 
@@ -28,7 +28,7 @@ namespace NimGame.Controllers
             }
         }
 
-        public bool AreEqual(int[] move1, int[] move2)
+        public static bool AreEqual(int[] move1, int[] move2)
         {
             int length = 0;
             bool equal = false;

@@ -7,7 +7,6 @@ namespace NimGame
 {
     public class Program
     {
-        MoveOperations moveOps;
         List<int[]> GameMoves;
         Board board;
         GameType GameType;
@@ -20,8 +19,7 @@ namespace NimGame
             GameType = GetGameType();
             board = new Board(row1, row2, row3);
             GameMoves = new List<int[]>();      
-            moveOps = new MoveOperations();
-            ai = new AI(moveOps);
+            ai = new AI();
             createPlayerTypes();
         }
 
