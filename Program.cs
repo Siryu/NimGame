@@ -33,13 +33,14 @@ namespace NimGame
         MoveOperations mm;
         AI computer;
         List<int[]> GameMoves;
-        int[] boardState;
+        int[] boardState, startingState;
         GameType GameType;
         int p1Wins = 0, p2Wins = 0;
 
-        public Program()
+        public Program(int row1 = 3, int row2 = 5, int row3 = 7)
         {
-            boardState = new int[] {3, 5, 7};
+            startingState = new int[] { row1, row2, row3 };
+            ResetBoardState();
             GameMoves = new List<int[]>();      
             
             GameType = GetGameType();
@@ -103,7 +104,7 @@ namespace NimGame
                 }
                 computer.AddGame(GameMoves);
                 GameMoves.Clear();
-                boardState = new int[] { 3, 5, 7 };
+                ResetBoardState();
                 if (player1Turn) 
                 {
                     p1Wins++;
@@ -146,6 +147,15 @@ namespace NimGame
                     turns--;
                     exit = false;
                 }
+            }
+        }
+
+        public void ResetBoardState()
+        {
+            boardState = new int[startingState.Length];
+            for (int i = 0; i < startingState.Length; ++i)
+            {
+                boardState[i] = startingState[0];
             }
         }
 
