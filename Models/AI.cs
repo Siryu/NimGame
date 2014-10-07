@@ -7,10 +7,11 @@ namespace NimGame.Models
     public class AI
     {
         List<Move> movesPossible;
-        Random rand = new Random();
+        Random rand;
 
         public AI()
         {
+            rand = new Random();
             movesPossible = new List<Move>();
         }
 

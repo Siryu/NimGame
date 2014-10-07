@@ -8,8 +8,8 @@ namespace NimGame.Models
 {
     public class Board
     {
-        int[] currentState;
-        int[] startingState;
+        private int[] currentState;
+        private int[] startingState;
 
         public Board(int row1, int row2, int row3)
         {

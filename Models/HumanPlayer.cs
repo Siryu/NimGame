@@ -8,7 +8,6 @@ namespace NimGame.Models
 {
     public class HumanPlayer : Player
     {
-    
         public override int[] getPlayerMove(int[] boardState)
         {
             int line = -1;

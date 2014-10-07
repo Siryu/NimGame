@@ -44,8 +44,11 @@ namespace NimGame
                         }
                     }
 
-                    Console.WriteLine("\n\n\n" + (player1.getTurn() ? "Player 1's turn" : "Player 2's turn"));
-                    board.PrintBoard();
+                    if (GameType != NimGame.GameType.Computer)
+                    {
+                        Console.WriteLine("\n\n\n" + (player1.getTurn() ? "Player 1's turn" : "Player 2's turn"));
+                        board.PrintBoard();
+                    }
                     board.setState(player1.getTurn() ? player1.getPlayerMove(board.getState()) : player2.getPlayerMove(board.getState()));
                     GameMoves.Add(board.getState());
 
