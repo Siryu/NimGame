@@ -45,7 +45,11 @@
     <Compile Include="Controllers\MoveOperations.cs" />
     <Compile Include="Enums\GameType.cs" />
     <Compile Include="Models\AI.cs" />
+    <Compile Include="Models\AIPlayer.cs" />
+    <Compile Include="Models\Board.cs" />
+    <Compile Include="Models\HumanPlayer.cs" />
     <Compile Include="Models\Move.cs" />
+    <Compile Include="Models\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

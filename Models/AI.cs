@@ -7,50 +7,19 @@ namespace NimGame.Models
     public class AI
     {
         List<Move> movesPossible;
-        Random rand = new Random();
-        MoveOperations mm;
+        Random rand;
 
-        public AI(MoveOperations mm)
+        public AI()
         {
-            this.mm = mm;
+            rand = new Random();
             movesPossible = new List<Move>();
-        }
-
-        public int[] calculateTurn(int[] boardState)
-        {
-            Move returnMove = new Move(new int[]{boardState[0], boardState[1], boardState[2]}, 0f);
-
-            foreach (Move m in movesPossible)
-            {
-                if (m.BoardSetup[0] == boardState[0] && m.BoardSetup[1] == boardState[1] && m.BoardSetup[2] == boardState[2])
-                {
-                    foreach (Move n in m.NextMove)
-                    {
-                        if (n.Value < returnMove.Value)
-                        {
-                            if ((n.BoardSetup[0] < boardState[0] && n.BoardSetup[1] == boardState[1] && n.BoardSetup[2] == boardState[2]) ||
-                                (n.BoardSetup[0] == boardState[0] && n.BoardSetup[1] < boardState[1] && n.BoardSetup[2] == boardState[2]) ||
-                                (n.BoardSetup[0] == boardState[0] && n.BoardSetup[1] == boardState[1] && n.BoardSetup[2] < boardState[2]))
-
-                            {
-                                returnMove = n;
-                            }
-                        }
-                    }
-                }
-            }
-            if (returnMove.Value >= 0.0f)
-            {
-                returnMove = GetRandomState(boardState);                
-            }
-            return returnMove.BoardSetup;
         }
 
         public void AddGame(List<int[]> moves)
         {
             int win = moves.Count % 2 == 0 ? 1 : -1;
 
-            for(int i = 0; i < moves.Count; i++)
+            for (int i = 0; i < moves.Count; i++)
             {
                 bool isThere = false;
                 float value;
@@ -59,12 +28,12 @@ namespace NimGame.Models
 
                 foreach (Move m in movesPossible)
                 {
-                    if (m.BoardSetup[0] == (moves[i])[0] && m.BoardSetup[1] == (moves[i])[1] && m.BoardSetup[2] == (moves[i])[2])
+                    if(MoveOperations.AreEqual(m.BoardSetup, moves[i]))
                     {
                         isThere = true;
                         if (i + 1 != moves.Count)
                         {
-                            mm.IsMove(moves[i + 1], m, value);
+                            MoveOperations.IsMove(moves[i + 1], m, value);
                             break;
                         }
                     }
@@ -74,7 +43,7 @@ namespace NimGame.Models
                     Move newMove = new Move(moves[i]);
                     if (i + 1 != moves.Count)
                     {
-                        mm.IsMove(moves[i + 1], newMove, value);
+                        MoveOperations.IsMove(moves[i + 1], newMove, value);
                         movesPossible.Add(newMove);
                     }
                 }
@@ -83,17 +52,9 @@ namespace NimGame.Models
             }
         }
 
-        private Move GetRandomState(int[] state)
+        public List<Move> getPossibleMoves()
         {
-            int row = rand.Next(3);
-
-            while (state[row] == 0)
-            {
-                row = rand.Next(3);
-            }
-            state[row] = state[row] - (rand.Next(1, state[row]));
-
-            return new Move(state);
+            return this.movesPossible;
         }
     }
 }
