@@ -28,7 +28,7 @@ namespace NimGame.Models
 
                 foreach (Move m in movesPossible)
                 {
-                    if(MoveOperations.AreEqual(m.BoardSetup, moves[i]))
+                    if(m.Equals(moves[i]))
                     {
                         isThere = true;
                         if (i + 1 != moves.Count)

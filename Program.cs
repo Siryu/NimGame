@@ -91,7 +91,7 @@ namespace NimGame
             }
 
             Console.WriteLine(player1.getTurn() ? "Player 1 wins!!!" : "Player 2 wins!!!");
-            player1.setTurn(true);
+            //player1.setTurn(true);
 
             Console.WriteLine("\n\nPlayer One wins: " + player1.getWins());
             Console.WriteLine("Player Two wins: " + player2.getWins() + "\n\n");
