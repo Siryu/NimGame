@@ -57,7 +57,10 @@ namespace NimGame.Models
 
             int row = rand.Next(3);
 
-            while (state[row] == 0) row = rand.Next(3);
+            while (state[row] == 0)
+            {
+                row = rand.Next(3);
+            }
 
             state[row] = state[row] - (rand.Next(1, state[row]));
 

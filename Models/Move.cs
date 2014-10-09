@@ -33,8 +33,13 @@ namespace NimGame.Models
                         if (this.BoardSetup[i] != move2[i]) equal = false;
                     }
                 }
-        }
+            }
             return equal;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

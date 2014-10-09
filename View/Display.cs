@@ -25,7 +25,7 @@ namespace NimGame.View
 
             Console.Write(question);
 
-            while (line <= 0 || line > 3)
+            while (line < lowerBound || line > upperBound)
             {
                 int.TryParse(Console.ReadLine(), out line);
                 if (line < lowerBound || line > upperBound)
@@ -37,6 +37,11 @@ namespace NimGame.View
             return line;
         }
 
+        /// <summary>
+        /// Asks user for a boolean input of y/n
+        /// </summary>
+        /// <param name="question">question supplied to ask</param>
+        /// <returns>bool value</returns>
         public static bool PromptForBool(string question)
         {
             string questionAnswer = null;

@@ -41,14 +41,13 @@ namespace NimGame
                     {
                         while (turns <= 0)
                         {
-                            Console.WriteLine("\n\n\n" + "How many rounds would you like to go?");
-                            int.TryParse(Console.ReadLine(), out turns);
+                            turns = View.Display.PromptForInt("\n\n\n" + "How many rounds would you like to go? : ", 1, int.MaxValue);
                         }
                     }
 
                     if (GameType != NimGame.GameType.Computer)
                     {
-                        Console.WriteLine("\n\n\n" + (player1.getTurn() ? "Player 1's turn" : "Player 2's turn"));
+                        View.Display.show("\n\n\n" + (player1.getTurn() ? "Player 1's turn" : "Player 2's turn"));
                         board.PrintBoard();
                     }
                     board.setState(player1.getTurn() ? player1.getPlayerMove(board.getState()) : player2.getPlayerMove(board.getState()));
@@ -92,11 +91,9 @@ namespace NimGame
                 player2.setWins(player2.getWins() + 1);
             }
 
-            Console.WriteLine(player1.getTurn() ? "Player 1 wins!!!" : "Player 2 wins!!!");
-            //player1.setTurn(true);
-
-            Console.WriteLine("\n\nPlayer One wins: " + player1.getWins());
-            Console.WriteLine("Player Two wins: " + player2.getWins() + "\n\n");
+            View.Display.show(player1.getTurn() ? "Player 1 wins!!!" : "Player 2 wins!!!");
+            View.Display.show("\n\nPlayer One wins: " + player1.getWins());
+            View.Display.show("Player Two wins: " + player2.getWins() + "\n\n");
         }
 
         private bool checkForEndOfRound()
