@@ -54,7 +54,7 @@ namespace NimGame.Models
 
         public IEnumerable<Move> getPossibleMoves()
         {
-            return this.movesPossible;
+            return new List<Move>(this.movesPossible);
         }
     }
 }

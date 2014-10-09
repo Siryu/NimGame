@@ -39,18 +39,23 @@ namespace NimGame.Models
 
         public void PrintBoard()
         {
-            Console.WriteLine();
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("\n");
+            
             for (int i = 0; i < 3; i++)
             {
-                Console.Write(i + 1 + ". ");
+                sb.Append((i + 1) + ". ");
 
                 for (int j = 0; j < currentState[i]; j++)
                 {
-                    Console.Write("X");
+                   sb.Append("X");
                 }
-                Console.WriteLine();
+                sb.Append("\n");
             }
-            Console.WriteLine();
+            sb.Append("\n");
+
+            View.Display.show(sb.ToString());
         }
     }
 }

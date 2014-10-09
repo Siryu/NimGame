@@ -2,6 +2,7 @@
 using NimGame.Models;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace NimGame
 {
@@ -61,7 +62,7 @@ namespace NimGame
 
                 if (turns < 2)
                 {
-                    bool exitGame = PromptToPlayAgain();
+                    bool exitGame = !PromptToPlayAgain();
                     gameExit = exitGame;
                     exit = exitGame;
                     turns = -1;
@@ -113,53 +114,30 @@ namespace NimGame
 
         private bool PromptToPlayAgain()
         {
-            string playAgain = null;
-            bool returnBool = false;
+            bool returnBool;
+            returnBool = View.Display.PromptForBool("Do you want to play again?");
 
-            while (playAgain == null)
+            if (returnBool)
             {
-                Console.WriteLine("Do you want to play again? y/n");
-                playAgain = Console.ReadLine().ToUpper();
-                if (playAgain == "N" || playAgain == "NO")
+                 GameType newGame = GetGameType();
+                if (newGame != GameType)
                 {
-                    returnBool = true;
-                }
-                else if (playAgain == "Y" || playAgain == "YES")
-                {
-                    returnBool = false;
-                    GameType newGame = GetGameType();
-                    if (newGame != GameType)
-                    {
-                        GameType = newGame;
-                        createPlayerTypes();
-                    }
-                }
-                else
-                {
-                    playAgain = null;
+                    GameType = newGame;
+                    createPlayerTypes();
                 }
             }
-                 return returnBool;
+            return returnBool;
         }
 
         public GameType GetGameType()
         {
-            int userInput = -1;
+            StringBuilder sb = new StringBuilder();
+            sb.Append("What type of game do you wish to play?\n\n");
+            sb.Append("1. Player vs. Player\n");
+            sb.Append("2. Player vs. Computer\n");
+            sb.Append("3. Computer vs. Computer\n");
 
-            while(userInput == -1)
-            {
-                Console.WriteLine("What type of game do you wish to play? \n");
-                Console.WriteLine("1. Player vs. Player");
-                Console.WriteLine("2. Player vs. Computer");
-                Console.WriteLine("3. Computer vs. Computer");
-                Console.WriteLine();
-
-                int.TryParse(Console.ReadLine(), out userInput);
-                if (userInput != 1 && userInput != 2 && userInput != 3)
-                {
-                    userInput = -1;
-                }
-            }
+            int userInput = View.Display.PromptForInt(sb.ToString(), 1, 3);
 
             return (GameType)(Enum.GetValues(typeof(GameType)).GetValue(userInput - 1));
         }
