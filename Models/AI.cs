@@ -1,5 +1,6 @@
 ﻿using NimGame.Controllers;
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 
 namespace NimGame.Models
@@ -17,13 +18,18 @@ namespace NimGame.Models
 
         public void AddGame(List<int[]> moves)
         {
+            Debug.Assert(moves != null);
+
             int win = moves.Count % 2 == 0 ? 1 : -1;
+
+            Debug.Assert(win == 1 || win == -1);
 
             for (int i = 0; i < moves.Count; i++)
             {
                 bool isThere = false;
                 float value;
 
+                //I do not think this needs an assertion, but I am not sure... Kevin.
                 value = ((float)(i + 1) / moves.Count) * win;
 
                 foreach (Move m in movesPossible)

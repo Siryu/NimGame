@@ -3,6 +3,7 @@ using NimGame.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics;
 
 namespace NimGame
 {
@@ -138,7 +139,7 @@ namespace NimGame
             sb.Append("3. Computer vs. Computer\n");
 
             int userInput = View.Display.PromptForInt(sb.ToString(), 1, 3);
-
+         
             return (GameType)(Enum.GetValues(typeof(GameType)).GetValue(userInput - 1));
         }
 
