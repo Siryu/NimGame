@@ -59,7 +59,7 @@ namespace NimGame
 
                 roundOver();
 
-                if (turns <= 1)
+                if (turns < 2)
                 {
                     bool exitGame = PromptToPlayAgain();
                     gameExit = exitGame;
