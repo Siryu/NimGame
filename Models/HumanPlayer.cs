@@ -10,6 +10,8 @@ namespace NimGame.Models
     {
         public override int[] getPlayerMove(int[] boardState)
         {
+            Debug.Assert(boardState != null);
+
             int line = -1;
             int count = -1;
 
@@ -17,10 +19,7 @@ namespace NimGame.Models
             {
                 Console.Write("What line do you wish to remove from?: ");
                 int.TryParse(Console.ReadLine(), out line);
-                if (line > 0 && line <= 3 && !(boardState[line - 1] > 0))
-                {
-                    line = -1;
-                }
+                if (line > 0 && line <= 3 && !(boardState[line - 1] > 0)) line = -1;
             }
 
             while (count > boardState[line - 1] || count <= 0)

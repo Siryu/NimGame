@@ -1,6 +1,7 @@
 ﻿using NimGame.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,8 @@ namespace NimGame.Models
 
         public override int[] getPlayerMove(int[] boardState)
         {
+            Debug.Assert(boardState != null);
+
             Move returnMove = new Move(new int[] { boardState[0], boardState[1], boardState[2] }, 0f);
 
             foreach (Move m in ai.getPossibleMoves())
@@ -49,12 +52,13 @@ namespace NimGame.Models
 
         private Move GetRandomState(int[] state)
         {
+            Debug.Assert(state != null);
+            Debug.Assert(state.Count == 3);
+
             int row = rand.Next(3);
 
-            while (state[row] == 0)
-            {
-                row = rand.Next(3);
-            }
+            while (state[row] == 0) row = rand.Next(3);
+
             state[row] = state[row] - (rand.Next(1, state[row]));
 
             return new Move(state);

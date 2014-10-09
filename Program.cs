@@ -2,6 +2,7 @@
 using NimGame.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace NimGame
 {
@@ -155,10 +156,7 @@ namespace NimGame
                 Console.WriteLine();
 
                 int.TryParse(Console.ReadLine(), out userInput);
-                if (userInput != 1 && userInput != 2 && userInput != 3)
-                {
-                    userInput = -1;
-                }
+                if (userInput != 1 && userInput != 2 && userInput != 3) userInput = -1;
             }
 
             return (GameType)(Enum.GetValues(typeof(GameType)).GetValue(userInput - 1));
