@@ -9,11 +9,12 @@ namespace NimGame.Models
 {
     public class AIPlayer : Player
     {
-        Random rand = new Random();
-        AI ai;
+        private Random rand;
+        private AI ai;
 
         public AIPlayer(AI ai)
         {
+            this.rand = new Random();
             this.ai = ai;
         }
 
@@ -23,7 +24,7 @@ namespace NimGame.Models
 
             foreach (Move m in ai.getPossibleMoves())
             {
-                if (MoveOperations.AreEqual(m.BoardSetup, boardState))
+                if (m.Equals(boardState))
                 {
                     foreach (Move n in m.NextMove)
                     {

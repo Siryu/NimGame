@@ -16,5 +16,25 @@ namespace NimGame.Models
             this.Value = value;
             this.TimesSelected = 1;
         }
+
+        public override bool Equals(object obj)
+        {
+            bool equal = false;
+
+            if (obj is int[])
+            {
+                int[] move2 = obj as int[];
+                int length = 0;
+                if ((length = this.BoardSetup.Length) == move2.Length)
+                {
+                    equal = true;
+                    for (int i = 0; i < length && equal; ++i)
+                    {
+                        if (this.BoardSetup[i] != move2[i]) equal = false;
+                    }
+                }
+        }
+            return equal;
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace NimGame.Controllers
 
             foreach (Move m in currentMove.NextMove)
             {
-                if (AreEqual(m.BoardSetup, next))
+                if (m.Equals(next))
                 {
                     float moveValue = m.Value * m.TimesSelected;
                     moveValue += value;
@@ -26,21 +26,6 @@ namespace NimGame.Controllers
                 Move newMove = new Move(next, value);
                 currentMove.NextMove.Add(newMove);
             }
-        }
-
-        public static bool AreEqual(int[] move1, int[] move2)
-        {
-            int length = 0;
-            bool equal = false;
-            if ((length = move1.Count()) == move2.Count())
-            {
-                equal = true;
-                for (int i = 0; i < length && equal; ++i)
-                {
-                    if (move1[i] != move2[i]) equal = false;
-                }
-            }
-            return equal;
         }
     }
 }
