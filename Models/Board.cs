@@ -29,7 +29,7 @@ namespace NimGame.Models
 
         public int[] getState()
         {
-            return new int[] {currentState[0], currentState[1], currentState[2]};
+            return (int[])this.currentState.Clone();
         }
 
         public void setState(int[] newState)
