@@ -53,7 +53,7 @@ namespace NimGame.Models
         private Move GetRandomState(int[] state)
         {
             Debug.Assert(state != null);
-            Debug.Assert(state.Count == 3);
+            Debug.Assert(state.Length == 3);
 
             int row = rand.Next(3);
 
