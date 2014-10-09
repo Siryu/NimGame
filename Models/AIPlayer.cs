@@ -9,11 +9,12 @@ namespace NimGame.Models
 {
     public class AIPlayer : Player
     {
-        Random rand = new Random();
-        AI ai;
+        private Random rand;
+        private AI ai;
 
         public AIPlayer(AI ai)
         {
+            this.rand = new Random();
             this.ai = ai;
         }
 

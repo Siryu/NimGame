@@ -6,8 +6,8 @@ namespace NimGame.Models
 {
     public class AI
     {
-        List<Move> movesPossible;
-        Random rand;
+        private List<Move> movesPossible;
+        private Random rand;
 
         public AI()
         {
