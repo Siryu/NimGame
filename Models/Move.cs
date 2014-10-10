@@ -30,7 +30,7 @@ namespace NimGame.Models
                     equal = true;
                     for (int i = 0; i < length && equal; ++i)
                     {
-                        if (this.BoardSetup[i] != move2[i]) equal = false;
+                        equal = (this.BoardSetup[i] == move2[i] ? true : false);
                     }
                 }
             }
