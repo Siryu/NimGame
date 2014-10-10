@@ -1,5 +1,6 @@
 ﻿using NimGame.Models;
 using System.Linq;
+using System.Diagnostics;
 
 namespace NimGame.Controllers
 {
@@ -7,6 +8,10 @@ namespace NimGame.Controllers
     {
         public static void IsMove(int[] next, Move currentMove, float value)
         {
+            Debug.Assert(next != null);
+            Debug.Assert(currentMove != null);
+            Debug.Assert(value != null);
+
             bool isAdded = false;
 
             foreach (Move m in currentMove.NextMove)

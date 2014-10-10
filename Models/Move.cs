@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace NimGame.Models
 {
@@ -19,6 +20,7 @@ namespace NimGame.Models
 
         public override bool Equals(object obj)
         {
+            Debug.Assert(obj != null);
             bool equal = false;
 
             if (obj is int[])
