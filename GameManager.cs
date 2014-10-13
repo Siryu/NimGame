@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace NimGame
 {
-    public class Program
+    public class GameManager
     {
         List<int[]> GameMoves;
         Board board;
@@ -16,7 +16,7 @@ namespace NimGame
         Player player2;
         AI ai;
 
-        public Program(int row1 = 3, int row2 = 5, int row3 = 7)
+        public GameManager(int row1 = 3, int row2 = 5, int row3 = 7)
         {
             GameType = GetGameType();
             board = new Board(row1, row2, row3);
