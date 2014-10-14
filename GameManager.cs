@@ -129,13 +129,13 @@ namespace NimGame
 
         public GameType GetGameType()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("What type of game do you wish to play?\n\n");
-            sb.Append("1. Player vs. Player\n");
-            sb.Append("2. Player vs. Computer\n");
-            sb.Append("3. Computer vs. Computer\n");
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("What type of game do you wish to play?\n\n");
+            stringBuilder.Append("1. Player vs. Player\n");
+            stringBuilder.Append("2. Player vs. Computer\n");
+            stringBuilder.Append("3. Computer vs. Computer\n");
 
-            int userInput = View.Display.PromptForInt(sb.ToString(), 1, 3);
+            int userInput = View.Display.PromptForInt(stringBuilder.ToString(), 1, 3);
 
             GameType selectedGameType = (GameType)(Enum.GetValues(typeof(GameType)).GetValue(userInput - 1));
 
