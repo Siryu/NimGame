@@ -4,7 +4,7 @@
     {
         public static void Main(string[] args)
         {
-            Program prog = new Program();
+            GameManager prog = new GameManager();
             prog.Game();
         }
     }

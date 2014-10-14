@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace NimGame
 {
-    public class Program
+    public class GameManager
     {
         List<int[]> GameMoves;
         Board board;
@@ -16,7 +16,7 @@ namespace NimGame
         Player player2;
         AI ai;
 
-        public Program(int row1 = 3, int row2 = 5, int row3 = 7)
+        public GameManager(int row1 = 3, int row2 = 5, int row3 = 7)
         {
             GameType = GetGameType();
             board = new Board(row1, row2, row3);
@@ -98,33 +98,33 @@ namespace NimGame
 
         private bool checkForEndOfRound()
         {
-            bool returnBool = true;
+            bool endOfRound = true;
             foreach (int i in board.getState())
             {
                 if (i != 0)
                 {
-                    returnBool = false;
+                    endOfRound = false;
                     break;
                 }
             }
-            return returnBool;
+            return endOfRound;
         }
 
         private bool PromptToPlayAgain()
         {
-            bool returnBool;
-            returnBool = View.Display.PromptForBool("Do you want to play again?");
+            bool playAgain;
+            playAgain = View.Display.PromptForBool("Do you want to play again?");
 
-            if (returnBool)
+            if (playAgain)
             {
-                 GameType newGame = GetGameType();
+                GameType newGame = GetGameType();
                 if (newGame != GameType)
                 {
                     GameType = newGame;
                     createPlayerTypes();
                 }
             }
-            return returnBool;
+            return playAgain;
         }
 
         public GameType GetGameType()
@@ -136,8 +136,10 @@ namespace NimGame
             sb.Append("3. Computer vs. Computer\n");
 
             int userInput = View.Display.PromptForInt(sb.ToString(), 1, 3);
-         
-            return (GameType)(Enum.GetValues(typeof(GameType)).GetValue(userInput - 1));
+
+            GameType selectedGameType = (GameType)(Enum.GetValues(typeof(GameType)).GetValue(userInput - 1));
+
+            return selectedGameType;
         }
 
         private void createPlayerTypes()
