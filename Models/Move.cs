@@ -21,6 +21,7 @@ namespace NimGame.Models
         public override bool Equals(object obj)
         {
             Debug.Assert(obj != null);
+            Debug.Assert(obj is int[]);
             bool equal = false;
 
             if (obj is int[])
