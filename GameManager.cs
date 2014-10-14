@@ -29,7 +29,7 @@ namespace NimGame
         {
             bool exit = false;
             bool gameExit = false;
-            int turns = -1;
+            int rounds = -1;
 
             while (!gameExit)
             {
@@ -39,9 +39,9 @@ namespace NimGame
                 {
                     if(GameType == NimGame.GameType.Computer)
                     {
-                        while (turns <= 0)
+                        while (rounds <= 0)
                         {
-                            turns = View.Display.PromptForInt("\n\n\n" + "How many rounds would you like to go? : ", 1, int.MaxValue);
+                            rounds = View.Display.PromptForInt("\n\n\n" + "How many rounds would you like to go? : ", 1, int.MaxValue);
                         }
                     }
 
@@ -60,16 +60,16 @@ namespace NimGame
 
                 roundOver();
 
-                if (turns < 2)
+                if (rounds < 2)
                 {
                     bool exitGame = !PromptToPlayAgain();
                     gameExit = exitGame;
                     exit = exitGame;
-                    turns = -1;
+                    rounds = -1;
                 }
                 else
                 {
-                    turns--;
+                    rounds--;
                     exit = false;
                 }
             }
@@ -129,13 +129,13 @@ namespace NimGame
 
         public GameType GetGameType()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("What type of game do you wish to play?\n\n");
-            sb.Append("1. Player vs. Player\n");
-            sb.Append("2. Player vs. Computer\n");
-            sb.Append("3. Computer vs. Computer\n");
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("What type of game do you wish to play?\n\n");
+            stringBuilder.Append("1. Player vs. Player\n");
+            stringBuilder.Append("2. Player vs. Computer\n");
+            stringBuilder.Append("3. Computer vs. Computer\n");
 
-            int userInput = View.Display.PromptForInt(sb.ToString(), 1, 3);
+            int userInput = View.Display.PromptForInt(stringBuilder.ToString(), 1, 3);
 
             GameType selectedGameType = (GameType)(Enum.GetValues(typeof(GameType)).GetValue(userInput - 1));
 
