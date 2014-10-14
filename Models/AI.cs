@@ -26,17 +26,16 @@ namespace NimGame.Models
 
             for (int i = 0; i < moves.Count; i++)
             {
-                bool isThere = false;
+                bool alreadyStored = false;
                 float value;
 
-                //I do not think this needs an assertion, but I am not sure... Kevin.
                 value = ((float)(i + 1) / moves.Count) * win;
 
                 foreach (Move m in movesPossible)
                 {
                     if(m.Equals(moves[i]))
                     {
-                        isThere = true;
+                        alreadyStored = true;
                         if (i + 1 != moves.Count)
                         {
                             MoveOperations.IsMove(moves[i + 1], m, value);
@@ -44,7 +43,7 @@ namespace NimGame.Models
                         }
                     }
                 }
-                if (!isThere)
+                if (!alreadyStored)
                 {
                     Move newMove = new Move(moves[i]);
                     if (i + 1 != moves.Count)
