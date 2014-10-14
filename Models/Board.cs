@@ -43,10 +43,11 @@ namespace NimGame.Models
         public void PrintBoard()
         {
             StringBuilder stringBuilder = new StringBuilder();
+            const int ROWCOUNT = 3;
 
             stringBuilder.Append("\n");
 
-            for (int i = 1; i < 4; i++)
+            for (int i = 1; i <= ROWCOUNT; i++)
             {
                 stringBuilder.Append(i + ". ");
 
