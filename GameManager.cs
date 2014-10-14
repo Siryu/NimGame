@@ -29,7 +29,7 @@ namespace NimGame
         {
             bool exit = false;
             bool gameExit = false;
-            int turns = -1;
+            int rounds = -1;
 
             while (!gameExit)
             {
@@ -39,9 +39,9 @@ namespace NimGame
                 {
                     if(GameType == NimGame.GameType.Computer)
                     {
-                        while (turns <= 0)
+                        while (rounds <= 0)
                         {
-                            turns = View.Display.PromptForInt("\n\n\n" + "How many rounds would you like to go? : ", 1, int.MaxValue);
+                            rounds = View.Display.PromptForInt("\n\n\n" + "How many rounds would you like to go? : ", 1, int.MaxValue);
                         }
                     }
 
@@ -60,16 +60,16 @@ namespace NimGame
 
                 roundOver();
 
-                if (turns < 2)
+                if (rounds < 2)
                 {
                     bool exitGame = !PromptToPlayAgain();
                     gameExit = exitGame;
                     exit = exitGame;
-                    turns = -1;
+                    rounds = -1;
                 }
                 else
                 {
-                    turns--;
+                    rounds--;
                     exit = false;
                 }
             }
