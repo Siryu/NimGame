@@ -25,16 +25,21 @@ namespace NimGame.View
 
             Console.Write(question);
 
-            while (line < lowerBound || line > upperBound)
+            while (IsValidChoice(line, upperBound, lowerBound))
             {
                 int.TryParse(Console.ReadLine(), out line);
-                if (line < lowerBound || line > upperBound)
+                if (IsValidChoice(line, upperBound, lowerBound))
                 {
                     show(line + " is an invalid selection, please try again.");
                     line = -1;
                 }
             }
             return line;
+        }
+
+        private static bool IsValidChoice(int selection, int upper, int lower)
+        {
+            return (selection < lower || selection > upper);
         }
 
         /// <summary>
@@ -51,8 +56,8 @@ namespace NimGame.View
             {
                 Console.Write(question + " y/n: ");
                 questionAnswer = Console.ReadLine().ToUpper();
-
-                returnBool = questionAnswer.Substring(0, 1) == "Y" ? true : false; 
+                if(questionAnswer.Length > 0)
+                    returnBool = questionAnswer.Substring(0, 1) == "Y" ? true : false; 
             }
             return returnBool;
         }
