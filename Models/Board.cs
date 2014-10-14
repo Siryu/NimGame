@@ -11,6 +11,7 @@ namespace NimGame.Models
     {
         private int[] currentState;
         private int[] startingState;
+        public static int NUMBER_OF_ROWS = 3;
 
         public Board(int row1, int row2, int row3)
         {
@@ -43,7 +44,7 @@ namespace NimGame.Models
 
             stringBuilder.Append("\n");
             
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < NUMBER_OF_ROWS; i++)
             {
                 stringBuilder.Append((i + 1) + ". ");
 
