@@ -47,6 +47,7 @@
     <Compile Include="Models\AI.cs" />
     <Compile Include="Models\AIPlayer.cs" />
     <Compile Include="Models\Board.cs" />
+    <Compile Include="Models\BoardState.cs" />
     <Compile Include="Models\HumanPlayer.cs" />
     <Compile Include="Models\Move.cs" />
     <Compile Include="Models\Player.cs" />

@@ -5,12 +5,12 @@ namespace NimGame.Models
 {
     public class Move
     {
-        public int[] BoardSetup { get; set; }
+        public BoardState BoardSetup { get; set; }
         public float Value { get; set; }
         public int TimesSelected { get; set; }
         public List<Move> NextMove;
 
-        public Move(int[] boardSetup, float value = 0f)
+        public Move(BoardState boardSetup, float value = 0f)
         {
             this.NextMove = new List<Move>();
             this.BoardSetup = boardSetup;
@@ -21,18 +21,18 @@ namespace NimGame.Models
         public override bool Equals(object obj)
         {
             Debug.Assert(obj != null);
-            bool equal = false;
+            bool equal = true;
+            const int rowCount = 3;
 
-            if (obj is int[])
+            if (obj is BoardState)
             {
-                int[] move2 = obj as int[];
-                int length = 0;
-                if ((length = this.BoardSetup.Length) == move2.Length)
+                BoardState move2 = obj as BoardState;
+                for (int i = 1; i <= rowCount; i++)
                 {
-                    equal = true;
-                    for (int i = 0; i < length && equal; ++i)
+                    if (this.BoardSetup.getRowCount(i) != move2.getRowCount(i))
                     {
-                        equal = (this.BoardSetup[i] == move2[i] ? true : false);
+                        equal = false;
+                        break;
                     }
                 }
             }

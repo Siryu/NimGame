@@ -11,7 +11,7 @@ namespace NimGame.Models
         bool isPlayerTurn = true;
         int wins;
 
-        public abstract int[] getPlayerMove(int[] boardState);
+        public abstract BoardState getPlayerMove(BoardState boardState);
 
         public bool getTurn()
         {

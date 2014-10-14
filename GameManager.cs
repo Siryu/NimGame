@@ -9,7 +9,7 @@ namespace NimGame
 {
     public class GameManager
     {
-        List<int[]> GameMoves;
+        List<BoardState> GameMoves;
         Board board;
         GameType GameType;
         Player player1;
@@ -20,7 +20,7 @@ namespace NimGame
         {
             GameType = GetGameType();
             board = new Board(row1, row2, row3);
-            GameMoves = new List<int[]>();      
+            GameMoves = new List<BoardState>();      
             ai = new AI();
             createPlayerTypes();
         }
@@ -99,9 +99,9 @@ namespace NimGame
         private bool checkForEndOfRound()
         {
             bool endOfRound = true;
-            foreach (int i in board.getState())
+            for(int i = 1; i < 4; i++)
             {
-                if (i != 0)
+                if (board.getState().getRowCount(i) != 0)
                 {
                     endOfRound = false;
                     break;

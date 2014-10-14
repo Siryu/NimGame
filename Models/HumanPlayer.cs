@@ -9,24 +9,19 @@ namespace NimGame.Models
 {
     public class HumanPlayer : Player
     {
-        public override int[] getPlayerMove(int[] boardState)
+        public override BoardState getPlayerMove(BoardState boardState)
         {
             Debug.Assert(boardState != null);
 
             int count = -1;
             int line = -1;
-
-            while (line == -1)
-            {
-                line = View.Display.PromptForInt("What line do you wish to remove from?: ", 1, 3);
-                line = (!(boardState[line - 1] > 0)) ? -1 : line;  
-            }
-            while (count > boardState[line - 1] || count <= 0)
-            {
-                count = View.Display.PromptForInt("How many do you wish to remove from line " + line + "?: ", 1, boardState[line - 1]);
-            }
-
-            boardState[line - 1] = boardState[line - 1] - count;
+            const int smallestRow = 1;
+            const int largestRow = 3;
+    
+            line = View.Display.PromptForInt("What line do you wish to remove from?: ", smallestRow, largestRow);
+            count = View.Display.PromptForInt("How many do you wish to remove from line " + line + "?: ", 1, boardState.getRowCount(line));
+            
+            boardState.setRowCount(line, boardState.getRowCount(line) - count);
 
             return boardState;
         }

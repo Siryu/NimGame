@@ -16,7 +16,7 @@ namespace NimGame.Models
             movesPossible = new List<Move>();
         }
 
-        public void AddGame(List<int[]> moves)
+        public void AddGame(List<BoardState> moves)
         {
             Debug.Assert(moves != null);
 

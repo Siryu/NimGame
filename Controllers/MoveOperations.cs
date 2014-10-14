@@ -6,12 +6,11 @@ namespace NimGame.Controllers
 {
     public static class MoveOperations
     {
-        public static void IsMove(int[] next, Move currentMove, float value)
+        public static void IsMove(BoardState next, Move currentMove, float value)
         {
             Debug.Assert(next != null);
             Debug.Assert(currentMove != null);
-            Debug.Assert(value != null);
-
+            
             bool isAdded = false;
 
             foreach (Move m in currentMove.NextMove)

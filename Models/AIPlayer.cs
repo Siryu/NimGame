@@ -19,11 +19,11 @@ namespace NimGame.Models
             this.ai = ai;
         }
 
-        public override int[] getPlayerMove(int[] boardState)
+        public override BoardState getPlayerMove(BoardState boardState)
         {
             Debug.Assert(boardState != null);
 
-            Move returnMove = new Move(new int[] { boardState[0], boardState[1], boardState[2] }, 0f);
+            Move returnMove = new Move(boardState.Clone(), 0f);
 
             foreach (Move m in ai.getPossibleMoves())
             {
@@ -33,9 +33,9 @@ namespace NimGame.Models
                     {
                         if (n.Value < returnMove.Value)
                         {
-                            if ((n.BoardSetup[0] < boardState[0] && n.BoardSetup[1] == boardState[1] && n.BoardSetup[2] == boardState[2]) ||
-                                (n.BoardSetup[0] == boardState[0] && n.BoardSetup[1] < boardState[1] && n.BoardSetup[2] == boardState[2]) ||
-                                (n.BoardSetup[0] == boardState[0] && n.BoardSetup[1] == boardState[1] && n.BoardSetup[2] < boardState[2]))
+                            if ((n.BoardSetup.getRowCount(1) < boardState.getRowCount(1) && n.BoardSetup.getRowCount(2) == boardState.getRowCount(2) && n.BoardSetup.getRowCount(3) == boardState.getRowCount(3)) ||
+                                (n.BoardSetup.getRowCount(1) == boardState.getRowCount(1) && n.BoardSetup.getRowCount(2) < boardState.getRowCount(2) && n.BoardSetup.getRowCount(3) == boardState.getRowCount(3)) ||
+                                (n.BoardSetup.getRowCount(1) == boardState.getRowCount(1) && n.BoardSetup.getRowCount(2) == boardState.getRowCount(2) && n.BoardSetup.getRowCount(3) < boardState.getRowCount(3)))
                             {
                                 returnMove = n;
                             }
@@ -50,19 +50,18 @@ namespace NimGame.Models
             return returnMove.BoardSetup;
         }
 
-        private Move GetRandomState(int[] state)
+        private Move GetRandomState(BoardState state)
         {
             Debug.Assert(state != null);
-            Debug.Assert(state.Length == 3);
 
-            int row = rand.Next(3);
+            int row = rand.Next(1,4);
 
-            while (state[row] == 0)
+            while (state.getRowCount(row) == 0)
             {
-                row = rand.Next(3);
+                row = rand.Next(1,4);
             }
 
-            state[row] = state[row] - (rand.Next(1, state[row]));
+            state.setRowCount(row, (state.getRowCount(row) - (rand.Next(1, state.getRowCount(row)))));
 
             return new Move(state);
         }

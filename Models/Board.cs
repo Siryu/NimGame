@@ -9,32 +9,35 @@ namespace NimGame.Models
 {
     public class Board
     {
-        private int[] currentState;
-        private int[] startingState;
+        private BoardState currentState;
+        private BoardState defaultState;
 
         public Board(int row1, int row2, int row3)
         {
             Debug.Assert(row1 >= 0 && row2 >= 0 && row3 >= 0);
 
-            startingState = new int[] { row1, row2, row3 };
-            currentState = new int[] { row1, row2, row3 };
+            currentState = new BoardState(row1, row2, row3);
+            defaultState = new BoardState(row1, row2, row3);
+        }
+
+        public BoardState getState()
+        {
+            return this.currentState.Clone();
+        }
+
+        public void setState(BoardState state)
+        {
+            this.currentState = state;
+        }
+
+        public void editRowCount(int row, int count)
+        {
+            this.currentState.setRowCount(row, count);
         }
 
         public void ResetBoardState()
         {
-            currentState = new int[startingState.Length];
-            
-            for (int i = 0; i < startingState.Length; ++i) currentState[i] = startingState[i];
-        }
-
-        public int[] getState()
-        {
-            return (int[])this.currentState.Clone();
-        }
-
-        public void setState(int[] newState)
-        {
-            this.currentState = newState;
+            this.currentState = defaultState.Clone();
         }
 
         public void PrintBoard()
@@ -43,11 +46,11 @@ namespace NimGame.Models
 
             sb.Append("\n");
             
-            for (int i = 0; i < 3; i++)
+            for (int i = 1; i < 4; i++)
             {
-                sb.Append((i + 1) + ". ");
+                sb.Append(i + ". ");
 
-                for (int j = 0; j < currentState[i]; j++)
+                for (int j = 0; j < currentState.getRowCount(i); j++)
                 {
                    sb.Append("X");
                 }
