@@ -12,6 +12,7 @@ namespace NimGame.Models
         public override BoardState getPlayerMove(BoardState boardState)
         {
             Debug.Assert(boardState != null);
+            BoardState playerMove = boardState.Clone();
 
             int count = -1;
             int line = -1;
@@ -19,11 +20,11 @@ namespace NimGame.Models
             const int largestRow = 3;
     
             line = View.Display.PromptForInt("What line do you wish to remove from?: ", smallestRow, largestRow);
-            count = View.Display.PromptForInt("How many do you wish to remove from line " + line + "?: ", 1, boardState.getRowCount(line));
+            count = View.Display.PromptForInt("How many do you wish to remove from line " + line + "?: ", 1, playerMove.getRowCount(line));
             
-            boardState.setRowCount(line, boardState.getRowCount(line) - count);
+            playerMove.setRowCount(line, boardState.getRowCount(line) - count);
 
-            return boardState;
+            return playerMove;
         }
     }
 }

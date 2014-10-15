@@ -33,9 +33,7 @@ namespace NimGame.Models
                     {
                         if (n.Value < returnMove.Value)
                         {
-                            if ((n.BoardSetup.getRowCount(1) < boardState.getRowCount(1) && n.BoardSetup.getRowCount(2) == boardState.getRowCount(2) && n.BoardSetup.getRowCount(3) == boardState.getRowCount(3)) ||
-                                (n.BoardSetup.getRowCount(1) == boardState.getRowCount(1) && n.BoardSetup.getRowCount(2) < boardState.getRowCount(2) && n.BoardSetup.getRowCount(3) == boardState.getRowCount(3)) ||
-                                (n.BoardSetup.getRowCount(1) == boardState.getRowCount(1) && n.BoardSetup.getRowCount(2) == boardState.getRowCount(2) && n.BoardSetup.getRowCount(3) < boardState.getRowCount(3)))
+                            if(moveIsValidChange(n.BoardSetup, boardState))
                             {
                                 returnMove = n;
                             }
@@ -50,10 +48,24 @@ namespace NimGame.Models
             return returnMove.BoardSetup;
         }
 
+        private bool moveIsValidChange(BoardState newState, BoardState oldState)
+        {
+            bool isValidChange = false;
+            if ((newState.getRowCount(1) < oldState.getRowCount(1) && newState.getRowCount(2) == oldState.getRowCount(2) && newState.getRowCount(3) == oldState.getRowCount(3)) ||
+                (newState.getRowCount(1) == oldState.getRowCount(1) && newState.getRowCount(2) < oldState.getRowCount(2) && newState.getRowCount(3) == oldState.getRowCount(3)) ||
+                (newState.getRowCount(1) == oldState.getRowCount(1) && newState.getRowCount(2) == oldState.getRowCount(2) && newState.getRowCount(3) < oldState.getRowCount(3)))
+            {
+                isValidChange = true;
+            }
+
+            return isValidChange;
+        }
+
         private Move GetRandomState(BoardState state)
         {
             Debug.Assert(state != null);
-
+            Move randomState = new Move(state.Clone());
+            
             int row = rand.Next(1,4);
 
             while (state.getRowCount(row) == 0)
@@ -61,9 +73,9 @@ namespace NimGame.Models
                 row = rand.Next(1,4);
             }
 
-            state.setRowCount(row, (state.getRowCount(row) - (rand.Next(1, state.getRowCount(row)))));
+            randomState.BoardSetup.setRowCount(row, (state.getRowCount(row) - (rand.Next(1, state.getRowCount(row)))));
 
-            return new Move(state);
+            return randomState;
         }
     }
 }
