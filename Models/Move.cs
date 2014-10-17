@@ -27,12 +27,11 @@ namespace NimGame.Models
             if (obj is BoardState)
             {
                 BoardState move2 = obj as BoardState;
-                for (int i = 1; i <= rowCount; i++)
+                for (int i = 1; i <= rowCount && equal == true; i++)
                 {
                     if (this.BoardSetup.getRowCount(i) != move2.getRowCount(i))
                     {
                         equal = false;
-                        break;
                     }
                 }
             }
