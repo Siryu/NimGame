@@ -31,12 +31,9 @@ namespace NimGame.Models
                 {
                     foreach (Move n in m.NextMove)
                     {
-                        if (n.Value < returnMove.Value)
+                        if (n.Value < returnMove.Value && moveIsValidChange(n.BoardSetup, boardState))
                         {
-                            if(moveIsValidChange(n.BoardSetup, boardState))
-                            {
-                                returnMove = n;
-                            }
+                            returnMove = n;
                         }
                     }
                 }
