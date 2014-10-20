@@ -99,7 +99,7 @@ namespace NimGame
         private bool checkForEndOfRound()
         {
             bool endOfRound = true;
-            for(int i = 1; i < 4 && endOfRound == true; i++)
+            for(int i = 1; i < 4 && endOfRound; i++)
             {
                 if (board.getState().getRowCount(i) != 0)
                 {
